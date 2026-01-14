@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   # Root route
   root "home#index"
 
+  # Authentication routes
+  get "/auth/:provider/callback", to: "sessions#create"
+  get "/auth/failure", to: "sessions#failure"
+  delete "/logout", to: "sessions#destroy", as: :logout
+
   # Resource routes
   resources :games, only: [:index, :show]
   resources :user_games, only: [:index]
