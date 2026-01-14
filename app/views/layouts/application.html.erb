@@ -46,15 +46,124 @@
               <%= link_to "Recommendations", recommendations_path, class: "px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/50 transition-all duration-200 font-medium" %>
             </div>
 
-            <!-- Auth Section (placeholder for OAuth buttons) -->
+            <!-- Auth Section -->
             <div class="flex items-center space-x-3">
-              <!-- This will be populated by the authentication agent -->
-              <div id="auth-buttons" class="flex items-center space-x-3">
-                <!-- Sign In Button (temporary placeholder) -->
-                <button class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-all duration-200 font-medium">
-                  Sign In
-                </button>
-              </div>
+              <% if logged_in? %>
+                <!-- User Menu (Logged In) -->
+                <div class="relative user-menu-container">
+                  <button class="flex items-center space-x-3 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-all duration-200 user-menu-button">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                      <span class="text-white font-semibold text-sm"><%= current_user.name&.first&.upcase || "U" %></span>
+                    </div>
+                    <span class="hidden md:block text-white font-medium"><%= current_user.name || "User" %></span>
+                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </button>
+                  
+                  <!-- Dropdown Menu -->
+                  <div class="user-menu-dropdown hidden absolute right-0 mt-2 w-56 bg-slate-800 rounded-lg shadow-xl border border-slate-700 overflow-hidden z-50">
+                    <div class="px-4 py-3 border-b border-slate-700">
+                      <p class="text-white font-medium"><%= current_user.name %></p>
+                      <p class="text-slate-400 text-sm truncate"><%= current_user.email %></p>
+                    </div>
+                    <div class="py-2">
+                      <%= link_to user_games_path, class: "block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-200" do %>
+                        <div class="flex items-center space-x-2">
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                          </svg>
+                          <span>My Library</span>
+                        </div>
+                      <% end %>
+                      <%= link_to recommendations_path, class: "block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-200" do %>
+                        <div class="flex items-center space-x-2">
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                          </svg>
+                          <span>Recommendations</span>
+                        </div>
+                      <% end %>
+                      <a href="#" class="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-200">
+                        <div class="flex items-center space-x-2">
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                          </svg>
+                          <span>Settings</span>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="border-t border-slate-700">
+                      <%= button_to logout_path, method: :delete, class: "w-full text-left px-4 py-2 text-red-400 hover:bg-slate-700 hover:text-red-300 transition-colors duration-200" do %>
+                        <div class="flex items-center space-x-2">
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                          </svg>
+                          <span>Sign Out</span>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% else %>
+                <!-- Login Buttons (Not Logged In) -->
+                <div class="relative login-menu-container">
+                  <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-medium transition-all duration-200 login-menu-button">
+                    Sign In
+                  </button>
+                  
+                  <!-- Login Options Dropdown -->
+                  <div class="login-menu-dropdown hidden absolute right-0 mt-2 w-64 bg-slate-800 rounded-lg shadow-xl border border-slate-700 overflow-hidden z-50">
+                    <div class="px-4 py-3 border-b border-slate-700">
+                      <p class="text-white font-medium text-sm">Sign in with your gaming account</p>
+                    </div>
+                    <div class="py-2">
+                      <%= button_to "/auth/steam", method: :post, class: "w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-200" do %>
+                        <div class="flex items-center space-x-3">
+                          <div class="w-8 h-8 bg-slate-900 rounded flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M12 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8z"/>
+                            </svg>
+                          </div>
+                          <span class="font-medium">Steam</span>
+                        </div>
+                      <% end %>
+                      <%= button_to "/auth/gog", method: :post, class: "w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-200" do %>
+                        <div class="flex items-center space-x-3">
+                          <div class="w-8 h-8 bg-slate-900 rounded flex items-center justify-center">
+                            <span class="text-white font-bold text-xs">GOG</span>
+                          </div>
+                          <span class="font-medium">GOG</span>
+                        </div>
+                      <% end %>
+                      <%= button_to "/auth/google_oauth2", method: :post, class: "w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-200" do %>
+                        <div class="flex items-center space-x-3">
+                          <div class="w-8 h-8 bg-white rounded flex items-center justify-center">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24">
+                              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                            </svg>
+                          </div>
+                          <span class="font-medium">Google</span>
+                        </div>
+                      <% end %>
+                      <%= button_to "/auth/facebook", method: :post, class: "w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-700 hover:text-white transition-colors duration-200" do %>
+                        <div class="flex items-center space-x-3">
+                          <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                          </div>
+                          <span class="font-medium">Facebook</span>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
             </div>
 
             <!-- Mobile menu button -->
@@ -126,6 +235,42 @@
         if (mobileMenuButton && mobileMenu) {
           mobileMenuButton.addEventListener('click', function() {
             mobileMenu.classList.toggle('hidden');
+          });
+        }
+
+        // User menu dropdown toggle
+        const userMenuButton = document.querySelector('.user-menu-button');
+        const userMenuDropdown = document.querySelector('.user-menu-dropdown');
+        
+        if (userMenuButton && userMenuDropdown) {
+          userMenuButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            userMenuDropdown.classList.toggle('hidden');
+          });
+
+          // Close dropdown when clicking outside
+          document.addEventListener('click', function(e) {
+            if (!userMenuButton.contains(e.target) && !userMenuDropdown.contains(e.target)) {
+              userMenuDropdown.classList.add('hidden');
+            }
+          });
+        }
+
+        // Login menu dropdown toggle
+        const loginMenuButton = document.querySelector('.login-menu-button');
+        const loginMenuDropdown = document.querySelector('.login-menu-dropdown');
+        
+        if (loginMenuButton && loginMenuDropdown) {
+          loginMenuButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            loginMenuDropdown.classList.toggle('hidden');
+          });
+
+          // Close dropdown when clicking outside
+          document.addEventListener('click', function(e) {
+            if (!loginMenuButton.contains(e.target) && !loginMenuDropdown.contains(e.target)) {
+              loginMenuDropdown.classList.add('hidden');
+            }
           });
         }
       });
