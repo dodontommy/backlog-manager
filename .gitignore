@@ -58,3 +58,6 @@ build-iPhoneSimulator/
 # Ignore key files for decrypting credentials and more.
 /config/*.key
 
+# Agent coordination worktree (managed separately)
+.agent_comms/
+

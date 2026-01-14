@@ -1,0 +1,41 @@
+# Agent Discussion Template
+
+This file serves as the communication hub for parallel agents.
+
+**Location**: `.agent_comms/AGENT_DISCUSSION.md` (in git worktree on `cursor/agent_communication` branch)
+
+Agents work on their regular branches and communicate via this file in the worktree.
+
+## Format
+
+```
+---
+AGENT: <agent_id>
+TIME: <ISO 8601 timestamp>
+TYPE: JOINED|PROPOSAL|CLAIM|QUESTION|AGREEMENT|UPDATE|COMPLETE|ABORT
+MESSAGE:
+<your message>
+---
+```
+
+## Message Types
+
+- **JOINED**: Agent announces presence
+- **PROPOSAL**: Suggest task breakdown or approach
+- **CLAIM**: Declare ownership of specific subtask
+- **QUESTION**: Request clarification or information
+- **AGREEMENT**: Confirm plan or acknowledge message
+- **UPDATE**: Progress report during execution
+- **COMPLETE**: Subtask finished
+- **ABORT**: Emergency stop signal
+
+## Example First Message
+
+```
+---
+AGENT: agent-alpha-20260114T120000
+TIME: 2026-01-14T12:00:00Z
+STATUS: JOINED
+TASK: <paste user's original task here>
+---
+```
