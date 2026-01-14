@@ -18,7 +18,21 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
+gem "bcrypt", "~> 3.1.7"
+
+# HTTP client for external API calls
+gem "httparty", "~> 0.21"
+gem "faraday", "~> 2.7"
+
+# AI Service Integrations
+gem "ruby-openai", "~> 6.3"  # OpenAI GPT-4 integration
+# gem "anthropic", "~> 0.1"  # Anthropic Claude (when available)
+
+# Rate limiting
+gem "rack-attack", "~> 6.7"
+
+# Environment variables management
+gem "dotenv-rails", "~> 2.8", groups: [:development, :test]
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
@@ -52,6 +66,12 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Test data factories
+  gem "factory_bot_rails", "~> 6.4"
+
+  # Fake data generation
+  gem "faker", "~> 3.2"
 end
 
 group :development do
@@ -63,4 +83,11 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+
+  # HTTP request mocking for tests
+  gem "webmock", "~> 3.19"
+  gem "vcr", "~> 6.2"
+
+  # Test coverage
+  gem "simplecov", "~> 0.22", require: false
 end
