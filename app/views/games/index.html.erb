@@ -1,2 +1,88 @@
-<h1>Games#index</h1>
-<p>Find me in app/views/games/index.html.erb</p>
+<div class="max-w-7xl mx-auto">
+  <!-- Header -->
+  <div class="mb-8">
+    <h1 class="text-4xl font-bold mb-4 gradient-text">Game Library</h1>
+    <p class="text-slate-400 text-lg">Browse and explore your entire game collection</p>
+  </div>
+
+  <!-- Filters and Search -->
+  <div class="card p-6 mb-8">
+    <div class="flex flex-col lg:flex-row gap-4">
+      <div class="flex-1">
+        <input type="text" placeholder="Search games..." class="input-field">
+      </div>
+      <div class="flex gap-4">
+        <select class="input-field min-w-[150px]">
+          <option>All Platforms</option>
+          <option>Steam</option>
+          <option>GOG</option>
+          <option>Epic Games</option>
+        </select>
+        <select class="input-field min-w-[150px]">
+          <option>All Genres</option>
+          <option>Action</option>
+          <option>Adventure</option>
+          <option>RPG</option>
+          <option>Strategy</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Games Grid -->
+  <div id="games-grid">
+    <% if @games && @games.any? %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <% @games.each do |game| %>
+          <%= link_to game_path(game), class: "card-hover p-4 block" do %>
+            <!-- Game Image Placeholder -->
+            <div class="w-full h-48 bg-gradient-to-br from-slate-700 to-slate-800 rounded-lg mb-4 flex items-center justify-center">
+              <svg class="w-16 h-16 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            
+            <!-- Game Info -->
+            <h3 class="text-lg font-semibold text-white mb-2 line-clamp-2"><%= game.name %></h3>
+            <% if game.developer.present? %>
+              <p class="text-slate-400 text-sm mb-2"><%= game.developer %></p>
+            <% end %>
+            <% if game.playtime_minutes.present? %>
+              <p class="text-slate-500 text-xs">Playtime: <%= game.playtime_minutes / 60 %> hours</p>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    <% else %>
+      <!-- Empty State -->
+      <div class="card p-12 text-center">
+        <div class="w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-10 h-10 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-white mb-2">No Games Found</h3>
+        <p class="text-slate-400 mb-6">Connect your gaming accounts to start building your library</p>
+        <button class="btn-primary">Connect Accounts</button>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Pagination Placeholder -->
+  <% if @games && @games.any? && @games.respond_to?(:total_pages) && @games.total_pages > 1 %>
+    <div class="mt-8 flex justify-center">
+      <div class="flex gap-2">
+        <button class="px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-white transition-colors duration-200">
+          Previous
+        </button>
+        <button class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-white transition-colors duration-200">
+          1
+        </button>
+        <button class="px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-white transition-colors duration-200">
+          Next
+        </button>
+      </div>
+    </div>
+  <% end %>
+</div>

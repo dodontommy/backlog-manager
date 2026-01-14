@@ -1,0 +1,81 @@
+  [1m[35m (101.4ms)[0m  [1m[35mCREATE DATABASE "what_the_game_development" ENCODING = 'unicode' /*application='WhatTheGame'*/[0m
+  [1m[35m (104.2ms)[0m  [1m[35mCREATE DATABASE "what_the_game_development" ENCODING = 'unicode' /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[35mSET search_path TO public /*application='WhatTheGame'*/[0m
+  [1m[35m (42.2ms)[0m  [1m[35mCREATE DATABASE "what_the_game_development" ENCODING = 'unicode' /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='WhatTheGame'*/[0m
+  [1m[35m (32.2ms)[0m  [1m[35mCREATE DATABASE "what_the_game_test" ENCODING = 'unicode' /*application='WhatTheGame'*/[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='WhatTheGame'*/[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='WhatTheGame'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1958484095794488885) /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-01-14 13:34:45.447577', '2026-01-14 13:34:45.447579') RETURNING "key" /*application='WhatTheGame'*/[0m
+Migrating to CreateUsers (20260114053950)
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='WhatTheGame'*/[0m
+  [1m[35m (5.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying, "username" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260114053950') RETURNING "version" /*application='WhatTheGame'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='WhatTheGame'*/[0m
+Migrating to CreateGames (20260114053956)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='WhatTheGame'*/[0m
+  [1m[35m (4.9ms)[0m  [1m[35mCREATE TABLE "games" ("id" bigserial primary key, "title" character varying, "description" text, "platform" character varying, "external_id" character varying, "release_date" date, "genre" character varying, "developer" character varying, "publisher" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260114053956') RETURNING "version" /*application='WhatTheGame'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='WhatTheGame'*/[0m
+Migrating to CreateUserGames (20260114054001)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='WhatTheGame'*/[0m
+  [1m[35m (5.5ms)[0m  [1m[35mCREATE TABLE "user_games" ("id" bigserial primary key, "user_id" bigint NOT NULL, "game_id" bigint NOT NULL, "status" character varying, "hours_played" decimal, "completion_percentage" integer, "priority" integer, "notes" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_a05b45437a"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_445132b40d"
+FOREIGN KEY ("game_id")
+  REFERENCES "games" ("id")
+) /*application='WhatTheGame'*/[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE INDEX "index_user_games_on_user_id" ON "user_games" ("user_id") /*application='WhatTheGame'*/[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE INDEX "index_user_games_on_game_id" ON "user_games" ("game_id") /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260114054001') RETURNING "version" /*application='WhatTheGame'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='WhatTheGame'*/[0m
+Migrating to CreateGameServices (20260114054008)
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='WhatTheGame'*/[0m
+  [1m[35m (5.1ms)[0m  [1m[35mCREATE TABLE "game_services" ("id" bigserial primary key, "user_id" bigint NOT NULL, "service_name" character varying, "access_token" text, "refresh_token" text, "token_expires_at" timestamp(6), "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_42c0f93ab6"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='WhatTheGame'*/[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE INDEX "index_game_services_on_user_id" ON "game_services" ("user_id") /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260114054008') RETURNING "version" /*application='WhatTheGame'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='WhatTheGame'*/[0m
+Migrating to CreateRecommendations (20260114054013)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='WhatTheGame'*/[0m
+  [1m[35m (8.5ms)[0m  [1m[35mCREATE TABLE "recommendations" ("id" bigserial primary key, "user_id" bigint NOT NULL, "game_id" bigint NOT NULL, "score" decimal, "reason" text, "ai_model" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_e696723f80"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_47f7d6ab93"
+FOREIGN KEY ("game_id")
+  REFERENCES "games" ("id")
+) /*application='WhatTheGame'*/[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE INDEX "index_recommendations_on_user_id" ON "recommendations" ("user_id") /*application='WhatTheGame'*/[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE INDEX "index_recommendations_on_game_id" ON "recommendations" ("game_id") /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260114054013') RETURNING "version" /*application='WhatTheGame'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='WhatTheGame'*/[0m
+Migrating to CreateIdentities (20260114054020)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='WhatTheGame'*/[0m
+  [1m[35m (5.5ms)[0m  [1m[35mCREATE TABLE "identities" ("id" bigserial primary key, "user_id" bigint NOT NULL, "provider" character varying NOT NULL, "uid" character varying NOT NULL, "access_token" character varying, "refresh_token" character varying, "expires_at" timestamp(6), "extra_info" json, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_5373344100"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='WhatTheGame'*/[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE INDEX "index_identities_on_user_id" ON "identities" ("user_id") /*application='WhatTheGame'*/[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_identities_on_provider_and_uid" ON "identities" ("provider", "uid") /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260114054020') RETURNING "version" /*application='WhatTheGame'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='WhatTheGame'*/[0m
+Migrating to AddOauthFieldsToUsers (20260114054025)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='WhatTheGame'*/[0m
+  [1m[35m (1.3ms)[0m  [1m[35mALTER TABLE "users" ADD "avatar_url" character varying /*application='WhatTheGame'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "provider" character varying /*application='WhatTheGame'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "uid" character varying /*application='WhatTheGame'*/[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_provider_and_uid" ON "users" ("provider", "uid") /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260114054025') RETURNING "version" /*application='WhatTheGame'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='WhatTheGame'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(1958484095794488885) /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='WhatTheGame'*/[0m

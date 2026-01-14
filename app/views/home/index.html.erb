@@ -1,54 +1,163 @@
-<div class="container">
-  <% if logged_in? %>
-    <div class="user-welcome">
-      <% if current_user.avatar_url.present? %>
-        <%= image_tag current_user.avatar_url, alt: current_user.username, class: "user-avatar" %>
-      <% end %>
-      <h1>Welcome back, <%= current_user.username %>!</h1>
-    </div>
-  <% else %>
-    <h1>Welcome to What The Game</h1>
-  <% end %>
+<!-- Hero Section -->
+<div class="relative py-20 overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-pink-600/10 rounded-3xl blur-3xl"></div>
   
-  <p class="lead">
-    Your AI-powered gaming backlog manager
-  </p>
-
-  <% unless logged_in? %>
-    <div class="cta-section">
-      <%= link_to "Get Started - Sign In", login_path, class: "btn-primary" %>
+  <div class="relative max-w-4xl mx-auto text-center px-4">
+    <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradient">
+      What The Game
+    </h1>
+    <p class="text-xl md:text-2xl text-slate-300 mb-8 leading-relaxed">
+      Your AI-powered gaming backlog manager.<br class="hidden sm:block">
+      Connect your libraries, get smart recommendations, conquer your backlog.
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <button class="btn-primary w-full sm:w-auto">
+        Get Started
+      </button>
+      <%= link_to games_path, class: "btn-secondary w-full sm:w-auto" do %>
+        Browse Games
+      <% end %>
     </div>
-  <% end %>
+  </div>
+</div>
 
-  <div class="features">
-    <h2>Features</h2>
-    <ul>
-      <li>Connect your gaming libraries from Steam, GOG, Epic Games, and more</li>
-      <li>Get AI-powered recommendations on what to play next</li>
-      <li>Track your gaming progress and completion rates</li>
-      <li>Prioritize your backlog with intelligent suggestions</li>
-      <li>Manage and organize your game collection</li>
-    </ul>
+<!-- Features Grid -->
+<div class="mt-20 mb-16">
+  <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 gradient-text">
+    Powerful Features
+  </h2>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Feature 1: Multi-Platform -->
+    <div class="card p-6 group">
+      <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+      </div>
+      <h3 class="text-xl font-semibold mb-2 text-white">Multi-Platform Support</h3>
+      <p class="text-slate-400">Connect your gaming libraries from Steam, GOG, Facebook, and Google. All your games in one place.</p>
+    </div>
+
+    <!-- Feature 2: AI Recommendations -->
+    <div class="card p-6 group">
+      <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+        </svg>
+      </div>
+      <h3 class="text-xl font-semibold mb-2 text-white">AI-Powered Recommendations</h3>
+      <p class="text-slate-400">Get intelligent suggestions on what to play next based on your preferences and gaming history.</p>
+    </div>
+
+    <!-- Feature 3: Progress Tracking -->
+    <div class="card p-6 group">
+      <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+        </svg>
+      </div>
+      <h3 class="text-xl font-semibold mb-2 text-white">Track Your Progress</h3>
+      <p class="text-slate-400">Monitor your gaming progress and completion rates. See your stats and achievements grow.</p>
+    </div>
+
+    <!-- Feature 4: Smart Prioritization -->
+    <div class="card p-6 group">
+      <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+      </div>
+      <h3 class="text-xl font-semibold mb-2 text-white">Smart Prioritization</h3>
+      <p class="text-slate-400">Intelligent algorithms help you prioritize your backlog based on your preferences and time.</p>
+    </div>
+
+    <!-- Feature 5: Organize Collection -->
+    <div class="card p-6 group">
+      <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+        </svg>
+      </div>
+      <h3 class="text-xl font-semibold mb-2 text-white">Organize Collection</h3>
+      <p class="text-slate-400">Manage and organize your game collection with custom tags, filters, and sorting options.</p>
+    </div>
+
+    <!-- Feature 6: Cross-Platform -->
+    <div class="card p-6 group">
+      <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+      <h3 class="text-xl font-semibold mb-2 text-white">Accessible Everywhere</h3>
+      <p class="text-slate-400">Access your library and recommendations from any device, anywhere, anytime.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Getting Started Section -->
+<div class="mt-20 mb-16 max-w-3xl mx-auto">
+  <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 gradient-text">
+    Getting Started is Easy
+  </h2>
+  
+  <div class="space-y-6">
+    <div class="card p-6 flex items-start gap-4">
+      <div class="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+        1
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold mb-2 text-white">Connect Your Accounts</h3>
+        <p class="text-slate-400">Link your gaming platform accounts from Steam, GOG, Facebook, or Google.</p>
+      </div>
+    </div>
+
+    <div class="card p-6 flex items-start gap-4">
+      <div class="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold">
+        2
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold mb-2 text-white">Import Your Library</h3>
+        <p class="text-slate-400">Automatically sync your game library from all connected platforms.</p>
+      </div>
+    </div>
+
+    <div class="card p-6 flex items-start gap-4">
+      <div class="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-pink-500 to-red-600 rounded-full flex items-center justify-center text-white font-bold">
+        3
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold mb-2 text-white">Set Your Preferences</h3>
+        <p class="text-slate-400">Tell us about your gaming preferences and priorities.</p>
+      </div>
+    </div>
+
+    <div class="card p-6 flex items-start gap-4">
+      <div class="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-red-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold">
+        4
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold mb-2 text-white">Get Recommendations</h3>
+        <p class="text-slate-400">Receive personalized AI-powered game recommendations.</p>
+      </div>
+    </div>
+
+    <div class="card p-6 flex items-start gap-4">
+      <div class="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-orange-500 to-yellow-600 rounded-full flex items-center justify-center text-white font-bold">
+        5
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold mb-2 text-white">Start Playing!</h3>
+        <p class="text-slate-400">Conquer your backlog one game at a time.</p>
+      </div>
+    </div>
   </div>
 
-  <div class="quick-links">
-    <h2>Quick Links</h2>
-    <ul>
-      <li><%= link_to "Browse Games", games_path %></li>
-      <li><%= link_to "My Backlog", user_games_path %></li>
-      <li><%= link_to "Get Recommendations", recommendations_path %></li>
-    </ul>
-  </div>
-
-  <div class="getting-started">
-    <h2>Getting Started</h2>
-    <ol>
-      <li>Connect your gaming platform accounts</li>
-      <li>Import your game library</li>
-      <li>Set your preferences and priorities</li>
-      <li>Get personalized AI recommendations</li>
-      <li>Start conquering your backlog!</li>
-    </ol>
+  <div class="text-center mt-12">
+    <button class="btn-primary px-8 py-4 text-lg">
+      Start Your Journey
+    </button>
   </div>
 </div>
 

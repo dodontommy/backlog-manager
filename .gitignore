@@ -61,3 +61,6 @@ build-iPhoneSimulator/
 # Agent coordination worktree (managed separately)
 .agent_comms/
 
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

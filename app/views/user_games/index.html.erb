@@ -1,2 +1,179 @@
-<h1>UserGames#index</h1>
-<p>Find me in app/views/user_games/index.html.erb</p>
+<div class="max-w-7xl mx-auto">
+  <!-- Header -->
+  <div class="mb-8">
+    <h1 class="text-4xl font-bold mb-4 gradient-text">My Game Library</h1>
+    <p class="text-slate-400 text-lg">Manage your personal game collection and track your progress</p>
+  </div>
+
+  <!-- Stats Overview -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+    <div class="card p-6">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-slate-400 text-sm">Total Games</span>
+        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+        </svg>
+      </div>
+      <div class="text-3xl font-bold text-white"><%= @user_games&.count || 0 %></div>
+    </div>
+
+    <div class="card p-6">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-slate-400 text-sm">Completed</span>
+        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+      <div class="text-3xl font-bold text-white"><%= @user_games&.where(completion_status: 'completed')&.count || 0 %></div>
+    </div>
+
+    <div class="card p-6">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-slate-400 text-sm">In Progress</span>
+        <svg class="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+      <div class="text-3xl font-bold text-white"><%= @user_games&.where(completion_status: 'in_progress')&.count || 0 %></div>
+    </div>
+
+    <div class="card p-6">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-slate-400 text-sm">Total Hours</span>
+        <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+      </div>
+      <div class="text-3xl font-bold text-white"><%= (@user_games&.sum(:playtime_minutes) || 0) / 60 %></div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="card p-6 mb-8">
+    <div class="flex flex-col lg:flex-row gap-4">
+      <div class="flex-1">
+        <input type="text" placeholder="Search your games..." class="input-field">
+      </div>
+      <div class="flex gap-4">
+        <select class="input-field min-w-[180px]">
+          <option>All Status</option>
+          <option>Not Started</option>
+          <option>In Progress</option>
+          <option>Completed</option>
+          <option>Abandoned</option>
+        </select>
+        <select class="input-field min-w-[180px]">
+          <option>Sort by: Recently Added</option>
+          <option>Sort by: Name</option>
+          <option>Sort by: Playtime</option>
+          <option>Sort by: Last Played</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Games List -->
+  <div id="user-games-list">
+    <% if @user_games && @user_games.any? %>
+      <div class="space-y-4">
+        <% @user_games.each do |user_game| %>
+          <div class="card-hover p-6">
+            <div class="flex flex-col md:flex-row gap-6">
+              <!-- Game Thumbnail -->
+              <div class="flex-shrink-0 w-full md:w-32 h-32 bg-gradient-to-br from-slate-700 to-slate-800 rounded-lg flex items-center justify-center">
+                <svg class="w-12 h-12 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+
+              <!-- Game Info -->
+              <div class="flex-1">
+                <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-3">
+                  <div>
+                    <%= link_to user_game.game.name, game_path(user_game.game), class: "text-xl font-bold text-white hover:text-blue-400 transition-colors duration-200" %>
+                    <p class="text-slate-400 text-sm mt-1">
+                      <%= user_game.game.platform&.titleize || "Unknown Platform" %>
+                    </p>
+                  </div>
+                  <span class="mt-2 md:mt-0 inline-flex px-3 py-1 rounded-full text-sm font-medium <%= 
+                    case user_game.completion_status
+                    when 'completed' then 'bg-green-900/50 text-green-400 border border-green-700'
+                    when 'in_progress' then 'bg-yellow-900/50 text-yellow-400 border border-yellow-700'
+                    when 'abandoned' then 'bg-red-900/50 text-red-400 border border-red-700'
+                    else 'bg-slate-800 text-slate-400 border border-slate-700'
+                    end
+                  %>">
+                    <%= user_game.completion_status&.titleize || "Not Started" %>
+                  </span>
+                </div>
+
+                <!-- Stats Bar -->
+                <div class="flex flex-wrap gap-6 text-sm text-slate-400">
+                  <div class="flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span><%= (user_game.playtime_minutes || 0) / 60 %> hours played</span>
+                  </div>
+                  <% if user_game.last_played.present? %>
+                    <div class="flex items-center gap-2">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                      </svg>
+                      <span>Last played <%= user_game.last_played.strftime("%b %d, %Y") if user_game.last_played.respond_to?(:strftime) %></span>
+                    </div>
+                  <% end %>
+                  <% if user_game.achievements_total.present? && user_game.achievements_total > 0 %>
+                    <div class="flex items-center gap-2">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                      </svg>
+                      <span><%= user_game.achievements_unlocked || 0 %>/<%= user_game.achievements_total %> achievements</span>
+                    </div>
+                  <% end %>
+                </div>
+
+                <!-- Progress Bar (if in progress) -->
+                <% if user_game.completion_percentage.present? && user_game.completion_percentage > 0 %>
+                  <div class="mt-4">
+                    <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+                      <span>Progress</span>
+                      <span><%= user_game.completion_percentage %>%</span>
+                    </div>
+                    <div class="w-full bg-slate-700 rounded-full h-2">
+                      <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-300" style="width: <%= user_game.completion_percentage %>%"></div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+
+              <!-- Actions -->
+              <div class="flex md:flex-col gap-2">
+                <%= link_to game_path(user_game.game), class: "btn-secondary px-4 py-2 text-sm" do %>
+                  View
+                <% end %>
+                <button class="btn-secondary px-4 py-2 text-sm">Update</button>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <!-- Empty State -->
+      <div class="card p-12 text-center">
+        <div class="w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-10 h-10 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-white mb-2">Your Library is Empty</h3>
+        <p class="text-slate-400 mb-6">Connect your gaming accounts to import your games or browse the catalog to add games manually</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button class="btn-primary">Connect Accounts</button>
+          <%= link_to "Browse Games", games_path, class: "btn-secondary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
