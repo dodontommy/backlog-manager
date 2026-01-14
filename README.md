@@ -53,6 +53,27 @@ Run the test suite:
 rails test
 ```
 
+### Multi-Agent Coordination
+
+This project supports parallel AI agent execution for complex tasks. See `AGENTS.md` for the complete coordination protocol.
+
+**Quick Start:**
+```
+# In your prompt, include:
+parallelize: true
+
+# Agents will coordinate via the cursor/agent_communication branch
+# and communicate through AGENT_DISCUSSION.md
+```
+
+**Key Features:**
+- Automatic task distribution among multiple agents
+- Git-based synchronization and communication
+- Conflict-free parallel execution
+- Structured message format for coordination
+
+For detailed instructions, message formats, and examples, see `AGENTS.md`.
+
 ## License
 
 Copyright 2026
