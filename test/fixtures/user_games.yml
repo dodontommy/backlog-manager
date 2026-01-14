@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  game: one
+  status: MyString
+  hours_played: 9.99
+  completion_percentage: 1
+  priority: 1
+  notes: MyText
+
+two:
+  user: two
+  game: two
+  status: MyString
+  hours_played: 9.99
+  completion_percentage: 1
+  priority: 1
+  notes: MyText

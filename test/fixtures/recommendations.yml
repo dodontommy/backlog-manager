@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  game: one
+  score: 9.99
+  reason: MyText
+  ai_model: MyString
+
+two:
+  user: two
+  game: two
+  score: 9.99
+  reason: MyText
+  ai_model: MyString
