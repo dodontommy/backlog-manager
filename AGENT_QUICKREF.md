@@ -56,5 +56,14 @@ MESSAGE:
 echo "agent-$(whoami)-$(date -u +%Y%m%dT%H%M%S)"
 ```
 
+## Worktree Structure
+```
+your-repo/              (stay here - your working branch)
+├── .agent_comms/       (separate worktree - communication branch)
+│   └── AGENT_DISCUSSION.md
+├── app/                (work here)
+└── ...
+```
+
 ## Full docs
 See `AGENTS.md` for complete protocol.

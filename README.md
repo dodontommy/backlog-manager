@@ -68,9 +68,10 @@ parallelize: true
 
 **Key Features:**
 - Automatic task distribution among multiple agents
-- Git-based synchronization and communication
+- Git worktree-based communication (no branch switching!)
 - Conflict-free parallel execution
 - Structured message format for coordination
+- Code changes stay on your working branch
 
 For detailed instructions, message formats, and examples, see `AGENTS.md`.
 
