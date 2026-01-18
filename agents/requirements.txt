@@ -1,0 +1,16 @@
+# Phase 1: Local Gaming Curator Agent
+# These packages allow us to test the agent locally before deploying to AWS
+
+# HTTP client for API calls
+aiohttp==3.9.1
+
+# For future AI integration (not needed for Phase 1 prototype)
+# anthropic>=0.18.0
+
+# IGDB MCP Server (we'll install this separately)
+# Will be installed via: uvx igdb-mcp-server
+
+# For AWS deployment later (Phase 2)
+# boto3>=1.34.0
+# bedrock-agentcore>=0.1.0
+# bedrock-agentcore-starter-toolkit>=0.1.0

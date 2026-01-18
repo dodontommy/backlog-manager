@@ -79,3 +79,236 @@ Migrating to AddOauthFieldsToUsers (20260114054025)
   [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='WhatTheGame'*/[0m
   [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='WhatTheGame'*/[0m
   [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='WhatTheGame'*/[0m
+  [1m[35m (41.4ms)[0m  [1m[35mDROP DATABASE IF EXISTS "what_the_game_development" /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='WhatTheGame'*/[0m
+  [1m[35m (20.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS "what_the_game_test" /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='WhatTheGame'*/[0m
+  [1m[35m (55.1ms)[0m  [1m[35mCREATE DATABASE "what_the_game_development" ENCODING = 'unicode' /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='WhatTheGame'*/[0m
+  [1m[35m (42.6ms)[0m  [1m[35mCREATE DATABASE "what_the_game_test" ENCODING = 'unicode' /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (1.4ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql" SCHEMA pg_catalog /*application='WhatTheGame'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "game_services" CASCADE /*application='WhatTheGame'*/[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "game_services" ("id" bigserial primary key, "access_token" text, "created_at" timestamp(6) NOT NULL, "refresh_token" text, "service_name" character varying, "token_expires_at" timestamp(6), "updated_at" timestamp(6) NOT NULL, "user_id" bigint NOT NULL) /*application='WhatTheGame'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_game_services_on_user_id" ON "game_services" ("user_id") /*application='WhatTheGame'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "games" CASCADE /*application='WhatTheGame'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "games" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "description" text, "developer" character varying, "external_id" character varying, "genre" character varying, "platform" character varying, "publisher" character varying, "release_date" date, "title" character varying, "updated_at" timestamp(6) NOT NULL) /*application='WhatTheGame'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "identities" CASCADE /*application='WhatTheGame'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "identities" ("id" bigserial primary key, "access_token" character varying, "created_at" timestamp(6) NOT NULL, "expires_at" timestamp(6), "extra_info" json, "provider" character varying NOT NULL, "refresh_token" character varying, "uid" character varying NOT NULL, "updated_at" timestamp(6) NOT NULL, "user_id" bigint NOT NULL) /*application='WhatTheGame'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_identities_on_provider_and_uid" ON "identities" ("provider", "uid") /*application='WhatTheGame'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_identities_on_user_id" ON "identities" ("user_id") /*application='WhatTheGame'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "recommendations" CASCADE /*application='WhatTheGame'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "recommendations" ("id" bigserial primary key, "ai_model" character varying, "created_at" timestamp(6) NOT NULL, "game_id" bigint NOT NULL, "reason" text, "score" decimal, "updated_at" timestamp(6) NOT NULL, "user_id" bigint NOT NULL) /*application='WhatTheGame'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_recommendations_on_game_id" ON "recommendations" ("game_id") /*application='WhatTheGame'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_recommendations_on_user_id" ON "recommendations" ("user_id") /*application='WhatTheGame'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "user_games" CASCADE /*application='WhatTheGame'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "user_games" ("id" bigserial primary key, "completion_percentage" integer, "created_at" timestamp(6) NOT NULL, "game_id" bigint NOT NULL, "hours_played" decimal, "notes" text, "priority" integer, "status" character varying, "updated_at" timestamp(6) NOT NULL, "user_id" bigint NOT NULL) /*application='WhatTheGame'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_user_games_on_game_id" ON "user_games" ("game_id") /*application='WhatTheGame'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_user_games_on_user_id" ON "user_games" ("user_id") /*application='WhatTheGame'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE /*application='WhatTheGame'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "avatar_url" character varying, "created_at" timestamp(6) NOT NULL, "email" character varying, "provider" character varying, "uid" character varying, "updated_at" timestamp(6) NOT NULL, "username" character varying) /*application='WhatTheGame'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_provider_and_uid" ON "users" ("provider", "uid") /*application='WhatTheGame'*/[0m
+  [1m[35m (1.2ms)[0m  [1m[35mALTER TABLE "game_services" ADD CONSTRAINT "fk_rails_42c0f93ab6"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+ /*application='WhatTheGame'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "identities" ADD CONSTRAINT "fk_rails_5373344100"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+ /*application='WhatTheGame'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "recommendations" ADD CONSTRAINT "fk_rails_47f7d6ab93"
+FOREIGN KEY ("game_id")
+  REFERENCES "games" ("id")
+ /*application='WhatTheGame'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "recommendations" ADD CONSTRAINT "fk_rails_e696723f80"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+ /*application='WhatTheGame'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "user_games" ADD CONSTRAINT "fk_rails_445132b40d"
+FOREIGN KEY ("game_id")
+  REFERENCES "games" ("id")
+ /*application='WhatTheGame'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "user_games" ADD CONSTRAINT "fk_rails_a05b45437a"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+ /*application='WhatTheGame'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WhatTheGame'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20260114054025) /*application='WhatTheGame'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20260114054020),
+(20260114054013),
+(20260114054008),
+(20260114054001),
+(20260114053956),
+(20260114053950); /*application='WhatTheGame'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-01-15 00:37:35.689890', '2026-01-15 00:37:35.689890') RETURNING "key" /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', '5166138a00c3b5ccfb40af69af35982ba10f6271', '2026-01-15 00:37:35.690752', '2026-01-15 00:37:35.690752') RETURNING "key" /*application='WhatTheGame'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1958484095794488885) /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WhatTheGame'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT pg_advisory_unlock(1958484095794488885) /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO "$user", public /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO "$user", public /*application='WhatTheGame'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1958484095794488885) /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='WhatTheGame'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(1958484095794488885) /*application='WhatTheGame'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO "$user", public /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='WhatTheGame'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO "$user", public /*application='WhatTheGame'*/[0m
+Writing tailwind-d8db40aa.css
+Writing application-8b441ae0.css
+Writing stimulus.min-4b1e420e.js
+Writing stimulus-d59b3b7f.js
+Writing stimulus.min-2395e199.js.map
+Writing stimulus-importmap-autoloader-64cc03e1.js
+Writing stimulus-autoloader-9d447422.js
+Writing stimulus-loading-1fc53fe7.js
+Writing turbo.min-b571832f.js.map
+Writing turbo-3bd2ae57.js
+Writing turbo.min-ad2c7b86.js
+Writing actiontext.esm-c376325e.js
+Writing actiontext-c9c6c481.js
+Writing trix-ceada207.js
+Writing trix-65afdb1d.css
+Writing action_cable-5212cfee.js
+Writing actioncable.esm-e0ec9819.js
+Writing actioncable-ac25813f.js
+Writing activestorage.esm-81bb34bc.js
+Writing activestorage-f9e46063.js
+Writing rails-ujs.esm-e925103b.js
+Writing rails-ujs-20eaf715.js
+Started GET "/" for ::1 at 2026-01-14 18:38:03 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='WhatTheGame'*/[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.2ms | GC: 0.0ms)
+Completed 200 OK in 18ms (Views: 8.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/games" for ::1 at 2026-01-14 18:38:12 -0600
+Processing by GamesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering games/index.html.erb within layouts/application
+  Rendered games/index.html.erb within layouts/application (Duration: 0.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.7ms | GC: 0.0ms)
+Completed 200 OK in 6ms (Views: 4.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/auth/steam" for ::1 at 2026-01-14 18:38:42 -0600
+Started GET "/" for ::1 at 2026-01-14 18:38:57 -0600
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.7ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 3.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/games" for ::1 at 2026-01-14 18:38:59 -0600
+Processing by GamesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering games/index.html.erb within layouts/application
+  Rendered games/index.html.erb within layouts/application (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.5ms | GC: 0.0ms)
+Completed 200 OK in 5ms (Views: 3.2ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-14 18:39:01 -0600
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.8ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 2.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/cable" for ::1 at 2026-01-15 22:55:45 -0600
+Started GET "/cable" [WebSocket] for ::1 at 2026-01-15 22:55:45 -0600
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Finished "/cable" [WebSocket] for ::1 at 2026-01-16 05:42:32 -0600
+Started GET "/cable" for ::1 at 2026-01-16 12:59:45 -0600
+Started GET "/cable" [WebSocket] for ::1 at 2026-01-16 12:59:45 -0600
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Finished "/cable" [WebSocket] for ::1 at 2026-01-16 13:12:42 -0600
+Started GET "/cable" for ::1 at 2026-01-16 14:16:02 -0600
+Started GET "/cable" [WebSocket] for ::1 at 2026-01-16 14:16:02 -0600
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Finished "/cable" [WebSocket] for ::1 at 2026-01-16 14:29:00 -0600
+Started GET "/cable" for ::1 at 2026-01-16 14:53:52 -0600
+Started GET "/cable" [WebSocket] for ::1 at 2026-01-16 14:53:52 -0600
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Finished "/cable" [WebSocket] for ::1 at 2026-01-16 15:06:51 -0600
+Started GET "/cable" for ::1 at 2026-01-17 11:59:00 -0600
+Started GET "/cable" [WebSocket] for ::1 at 2026-01-17 11:59:00 -0600
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Subscription class not found: "NotificationsChannel"
+Ignoring message processed after the WebSocket was closed: "{\"command\":\"subscribe\",\"identifier\":\"{\\\"channel\\\":\\\"NotificationsChannel\\\"}\"}")
+Finished "/cable" [WebSocket] for ::1 at 2026-01-17 12:11:59 -0600

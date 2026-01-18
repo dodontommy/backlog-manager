@@ -61,6 +61,24 @@ build-iPhoneSimulator/
 # Agent coordination worktree (managed separately)
 .agent_comms/
 
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+*.egg-info/
+dist/
+build/
+agents/.env
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Precompiled assets (Rails asset pipeline)
+/public/assets/
+!/public/assets/.keep
