@@ -31,19 +31,30 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy session on logout" do
-    # Create a test user
-    user = User.create!(
-      email: "logout@example.com",
-      username: "logoutuser",
+    # Set up OAuth mock
+    OmniAuth.config.test_mode = true
+    OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
       provider: "google_oauth2",
-      uid: "logout123"
-    )
-    
-    delete logout_path, env: { "rack.session" => { user_id: user.id } }
-    
+      uid: "logout123",
+      info: {
+        email: "logout@example.com",
+        name: "Logout User",
+        nickname: "logoutuser"
+      }
+    })
+
+    # Sign in first
+    Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
+    get "/auth/google_oauth2/callback"
+    assert_not_nil session[:user_id]
+
+    # Now test logout
+    delete logout_path
+
     # Verify logout
     assert_redirected_to root_path
     assert_equal "Successfully logged out.", flash[:notice]
+    assert_nil session[:user_id]
   end
 
   # Steam OAuth tests
@@ -172,21 +183,25 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "refresh_steam_profile should update profile visibility" do
-    # Create a user with Steam identity
-    user = User.create!(
-      email: "steamuser@example.com",
-      username: "steamuser",
-      provider: "steam",
-      uid: "76561198033333333"
-    )
-    
-    identity = Identity.create!(
-      user: user,
+    # Set up Steam OAuth mock
+    OmniAuth.config.test_mode = true
+    OmniAuth.config.mock_auth[:steam] = OmniAuth::AuthHash.new({
       provider: "steam",
       uid: "76561198033333333",
-      steam_id: "76561198033333333",
-      profile_visibility: "private"
-    )
+      info: {
+        nickname: "TestSteamUser",
+        name: "Test Steam User"
+      }
+    })
+
+    # Sign in with Steam first
+    Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:steam]
+    get "/auth/steam/callback"
+    assert_not_nil session[:user_id]
+
+    user = User.find(session[:user_id])
+    identity = user.steam_identity
+    identity.update!(profile_visibility: "private")
 
     # Mock the Steam API call
     GamePlatforms::SteamService.any_instance.stubs(:fetch_player_summary).returns({
@@ -197,9 +212,9 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
       profile_url: "https://steamcommunity.com/id/test"
     })
 
-    # Refresh Steam profile with user logged in
-    post refresh_steam_profile_path, env: { "rack.session" => { user_id: user.id } }
-    
+    # Refresh Steam profile
+    post refresh_steam_profile_path
+
     assert_redirected_to user_games_path
     assert_match(/public and ready for syncing/, flash[:notice])
     
@@ -209,16 +224,26 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "refresh_steam_profile should handle missing steam connection" do
-    user = User.create!(
-      email: "nosteam@example.com",
-      username: "nosteamuser",
+    # Set up Google OAuth mock (user without Steam)
+    OmniAuth.config.test_mode = true
+    OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
       provider: "google_oauth2",
-      uid: "nosteam123"
-    )
-    
-    # Refresh without Steam connection
-    post refresh_steam_profile_path, env: { "rack.session" => { user_id: user.id } }
-    
+      uid: "nosteam123",
+      info: {
+        email: "nosteam@example.com",
+        name: "No Steam User",
+        nickname: "nosteamuser"
+      }
+    })
+
+    # Sign in with Google (not Steam)
+    Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
+    get "/auth/google_oauth2/callback"
+    assert_not_nil session[:user_id]
+
+    # Try to refresh Steam profile without Steam connection
+    post refresh_steam_profile_path
+
     assert_redirected_to user_games_path
     assert_equal "No Steam account connected.", flash[:alert]
   end
