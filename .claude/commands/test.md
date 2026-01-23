@@ -1,6 +1,6 @@
 # Test Runner
 
-Run the test suite for What The Game.
+Run the test suite for Backlog Manager.
 
 ## Instructions
 

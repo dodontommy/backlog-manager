@@ -1,5 +1,6 @@
 # Load custom strategies
 require_relative "../../lib/omniauth/strategies/gog"
+require_relative "../../lib/omniauth/strategies/steam_custom"
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   # Google OAuth2
@@ -22,9 +23,9 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       info_fields: "email,name,picture"
     }
 
-  # Steam OAuth
-  provider :steam,
-    ENV.fetch("STEAM_API_KEY", nil)
+  # Steam OAuth (custom strategy that bypasses OpenID SSL issues)
+  provider :steam_custom,
+    api_key: ENV.fetch("STEAM_API_KEY", nil)
 
   # GOG OAuth (custom strategy)
   provider :gog,
@@ -36,9 +37,15 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 end
 
 # Configure OmniAuth to handle errors gracefully
-OmniAuth.config.on_failure = proc { |env|
-  SessionsController.action(:failure).call(env)
+OmniAuth.config.on_failure = Proc.new { |env|
+  # Redirect to the failure action
+  env['omniauth.error.type'] ||= 'unknown'
+  message = env['omniauth.error.type']
+  [302, {'Location' => "/auth/failure?message=#{message}", 'Content-Type' => 'text/html'}, []]
 }
 
 # Allow HTTP in development (for local testing)
 OmniAuth.config.allowed_request_methods = [ :post, :get ]
+
+# Allow test mode
+OmniAuth.config.test_mode = Rails.env.test?

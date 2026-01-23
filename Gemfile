@@ -26,6 +26,8 @@ gem "omniauth-rails_csrf_protection", "~> 1.0"
 gem "omniauth-google-oauth2", "~> 1.1"
 gem "omniauth-facebook", "~> 10.0"
 gem "omniauth-steam", "~> 1.0"
+# Force ruby-openid to use a version that works better with SSL
+gem "ruby-openid", "~> 2.9.2"
 # Note: GOG doesn't have an official OmniAuth strategy, will need custom implementation
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -74,4 +76,10 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  
+  # Mock HTTP requests in tests
+  gem "webmock"
+  
+  # Mocking and stubbing library
+  gem "mocha"
 end

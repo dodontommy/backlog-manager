@@ -1,10 +1,10 @@
-# What The Game
+# Backlog Manager
 
 A Ruby on Rails application to help manage your gaming backlog across multiple platforms using AI recommendations.
 
 ## Overview
 
-What The Game helps gamers manage their game libraries from various services including:
+Backlog Manager helps gamers manage their game libraries from various services including:
 - Steam
 - GOG (Good Old Games)
 - Epic Games Store

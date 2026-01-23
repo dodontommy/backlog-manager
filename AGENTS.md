@@ -1,8 +1,8 @@
-# Agent Guidelines for What The Game
+# Agent Guidelines for Backlog Manager
 
 ## Project Overview
 
-**What The Game** is a Rails 8.1.2 application that helps gamers manage their gaming backlogs across multiple platforms (Steam, GOG, Epic Games) with AI-powered recommendations.
+**Backlog Manager** is a Rails 8.1.2 application that helps gamers manage their gaming backlogs across multiple platforms (Steam, GOG, Epic Games) with AI-powered recommendations.
 
 ### Tech Stack
 - **Backend**: Ruby on Rails 8.1.2, Ruby 3.2.3

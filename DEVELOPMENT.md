@@ -11,8 +11,8 @@
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/dodontommy/what-the-game.git
-cd what-the-game
+git clone https://github.com/dodontommy/backlog-manager.git
+cd backlog-manager
 ```
 
 2. Install Ruby dependencies:
@@ -36,7 +36,7 @@ rails db:seed
 Create a `.env` file in the root directory with the following:
 ```bash
 # Database
-DATABASE_URL=postgresql://localhost/what_the_game_development
+DATABASE_URL=postgresql://localhost/backlog_manager_development
 
 # Steam API (optional, for Steam integration)
 STEAM_API_KEY=your_steam_api_key_here

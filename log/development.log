@@ -312,3 +312,785 @@ Subscription class not found: "NotificationsChannel"
 Subscription class not found: "NotificationsChannel"
 Ignoring message processed after the WebSocket was closed: "{\"command\":\"subscribe\",\"identifier\":\"{\\\"channel\\\":\\\"NotificationsChannel\\\"}\"}")
 Finished "/cable" [WebSocket] for ::1 at 2026-01-17 12:11:59 -0600
+Started GET "/cable" for ::1 at 2026-01-17 21:01:41 -0600
+Started GET "/cable" [WebSocket] for ::1 at 2026-01-17 21:01:41 -0600
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: Upgrade, HTTP_UPGRADE: websocket)
+Subscription class not found: "NotificationsChannel"
+Finished "/cable" [WebSocket] for ::1 at 2026-01-17 21:01:41 -0600
+  [1m[35mSQL (0.2ms)[0m  [1m[35mSET search_path TO public /*application='BacklogManager'*/[0m
+  [1m[35m (76.8ms)[0m  [1m[35mCREATE DATABASE "backlog_manager_development" ENCODING = 'unicode' /*application='BacklogManager'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='BacklogManager'*/[0m
+  [1m[35m (51.9ms)[0m  [1m[35mCREATE DATABASE "backlog_manager_test" ENCODING = 'unicode' /*application='BacklogManager'*/[0m
+Started GET "/" for ::1 at 2026-01-17 21:07:12 -0600
+  [1m[35m (7.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='BacklogManager'*/[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='BacklogManager'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate
+
+You have 7 pending migrations:
+
+db/migrate/20260114053950_create_users.rb
+db/migrate/20260114053956_create_games.rb
+db/migrate/20260114054001_create_user_games.rb
+db/migrate/20260114054008_create_game_services.rb
+db/migrate/20260114054013_create_recommendations.rb
+db/migrate/20260114054020_create_identities.rb
+db/migrate/20260114054025_add_oauth_fields_to_users.rb
+
+
+):
+  
+activerecord (8.1.2) lib/active_record/migration.rb:743:in `check_pending_migrations'
+activerecord (8.1.2) lib/active_record/migration.rb:660:in `block (2 levels) in call'
+activesupport (8.1.2) lib/active_support/file_update_checker.rb:88:in `execute'
+activerecord (8.1.2) lib/active_record/migration.rb:665:in `block in call'
+activerecord (8.1.2) lib/active_record/migration.rb:657:in `synchronize'
+activerecord (8.1.2) lib/active_record/migration.rb:657:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (8.1.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (8.1.2) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/executor.rb:20:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (8.1.2) lib/rails/rack/logger.rb:41:in `call_app'
+railties (8.1.2) lib/rails/rack/logger.rb:29:in `call'
+propshaft (1.3.1) lib/propshaft/quiet_assets.rb:11:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/remote_ip.rb:98:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/request_id.rb:34:in `call'
+rack (3.2.4) lib/rack/method_override.rb:28:in `call'
+rack (3.2.4) lib/rack/runtime.rb:24:in `call'
+activesupport (8.1.2) lib/active_support/cache/strategy/local_cache_middleware.rb:30:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (8.1.2) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (8.1.2) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/executor.rb:20:in `call'
+propshaft (1.3.1) lib/propshaft/server.rb:37:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.2.4) lib/rack/sendfile.rb:131:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (8.1.2) lib/rails/engine.rb:534:in `call'
+puma (7.1.0) lib/puma/configuration.rb:300:in `call'
+puma (7.1.0) lib/puma/request.rb:101:in `block in handle_request'
+puma (7.1.0) lib/puma/thread_pool.rb:355:in `with_force_shutdown'
+puma (7.1.0) lib/puma/request.rb:100:in `handle_request'
+puma (7.1.0) lib/puma/server.rb:503:in `process_client'
+puma (7.1.0) lib/puma/server.rb:262:in `block in run'
+puma (7.1.0) lib/puma/thread_pool.rb:182:in `block in spawn_thread'
+Started GET "/apple-touch-icon-precomposed.png" for ::1 at 2026-01-17 21:07:12 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate
+
+You have 7 pending migrations:
+
+db/migrate/20260114053950_create_users.rb
+db/migrate/20260114053956_create_games.rb
+db/migrate/20260114054001_create_user_games.rb
+db/migrate/20260114054008_create_game_services.rb
+db/migrate/20260114054013_create_recommendations.rb
+db/migrate/20260114054020_create_identities.rb
+db/migrate/20260114054025_add_oauth_fields_to_users.rb
+
+
+):
+  
+activerecord (8.1.2) lib/active_record/migration.rb:743:in `check_pending_migrations'
+activerecord (8.1.2) lib/active_record/migration.rb:660:in `block (2 levels) in call'
+activesupport (8.1.2) lib/active_support/file_update_checker.rb:88:in `execute'
+activerecord (8.1.2) lib/active_record/migration.rb:665:in `block in call'
+activerecord (8.1.2) lib/active_record/migration.rb:657:in `synchronize'
+activerecord (8.1.2) lib/active_record/migration.rb:657:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (8.1.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (8.1.2) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/executor.rb:20:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (8.1.2) lib/rails/rack/logger.rb:41:in `call_app'
+railties (8.1.2) lib/rails/rack/logger.rb:29:in `call'
+propshaft (1.3.1) lib/propshaft/quiet_assets.rb:11:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/remote_ip.rb:98:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/request_id.rb:34:in `call'
+rack (3.2.4) lib/rack/method_override.rb:28:in `call'
+rack (3.2.4) lib/rack/runtime.rb:24:in `call'
+activesupport (8.1.2) lib/active_support/cache/strategy/local_cache_middleware.rb:30:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (8.1.2) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (8.1.2) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/executor.rb:20:in `call'
+propshaft (1.3.1) lib/propshaft/server.rb:37:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.2.4) lib/rack/sendfile.rb:131:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (8.1.2) lib/rails/engine.rb:534:in `call'
+puma (7.1.0) lib/puma/configuration.rb:300:in `call'
+puma (7.1.0) lib/puma/request.rb:101:in `block in handle_request'
+puma (7.1.0) lib/puma/thread_pool.rb:355:in `with_force_shutdown'
+puma (7.1.0) lib/puma/request.rb:100:in `handle_request'
+puma (7.1.0) lib/puma/server.rb:503:in `process_client'
+puma (7.1.0) lib/puma/server.rb:262:in `block in run'
+puma (7.1.0) lib/puma/thread_pool.rb:182:in `block in spawn_thread'
+Started GET "/apple-touch-icon.png" for ::1 at 2026-01-17 21:07:12 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate
+
+You have 7 pending migrations:
+
+db/migrate/20260114053950_create_users.rb
+db/migrate/20260114053956_create_games.rb
+db/migrate/20260114054001_create_user_games.rb
+db/migrate/20260114054008_create_game_services.rb
+db/migrate/20260114054013_create_recommendations.rb
+db/migrate/20260114054020_create_identities.rb
+db/migrate/20260114054025_add_oauth_fields_to_users.rb
+
+
+):
+  
+activerecord (8.1.2) lib/active_record/migration.rb:743:in `check_pending_migrations'
+activerecord (8.1.2) lib/active_record/migration.rb:660:in `block (2 levels) in call'
+activesupport (8.1.2) lib/active_support/file_update_checker.rb:88:in `execute'
+activerecord (8.1.2) lib/active_record/migration.rb:665:in `block in call'
+activerecord (8.1.2) lib/active_record/migration.rb:657:in `synchronize'
+activerecord (8.1.2) lib/active_record/migration.rb:657:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (8.1.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (8.1.2) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/executor.rb:20:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (8.1.2) lib/rails/rack/logger.rb:41:in `call_app'
+railties (8.1.2) lib/rails/rack/logger.rb:29:in `call'
+propshaft (1.3.1) lib/propshaft/quiet_assets.rb:11:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/remote_ip.rb:98:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/request_id.rb:34:in `call'
+rack (3.2.4) lib/rack/method_override.rb:28:in `call'
+rack (3.2.4) lib/rack/runtime.rb:24:in `call'
+activesupport (8.1.2) lib/active_support/cache/strategy/local_cache_middleware.rb:30:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (8.1.2) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (8.1.2) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/executor.rb:20:in `call'
+propshaft (1.3.1) lib/propshaft/server.rb:37:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.2.4) lib/rack/sendfile.rb:131:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (8.1.2) lib/rails/engine.rb:534:in `call'
+puma (7.1.0) lib/puma/configuration.rb:300:in `call'
+puma (7.1.0) lib/puma/request.rb:101:in `block in handle_request'
+puma (7.1.0) lib/puma/thread_pool.rb:355:in `with_force_shutdown'
+puma (7.1.0) lib/puma/request.rb:100:in `handle_request'
+puma (7.1.0) lib/puma/server.rb:503:in `process_client'
+puma (7.1.0) lib/puma/server.rb:262:in `block in run'
+puma (7.1.0) lib/puma/thread_pool.rb:182:in `block in spawn_thread'
+Started GET "/favicon.ico" for ::1 at 2026-01-17 21:07:12 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate
+
+You have 7 pending migrations:
+
+db/migrate/20260114053950_create_users.rb
+db/migrate/20260114053956_create_games.rb
+db/migrate/20260114054001_create_user_games.rb
+db/migrate/20260114054008_create_game_services.rb
+db/migrate/20260114054013_create_recommendations.rb
+db/migrate/20260114054020_create_identities.rb
+db/migrate/20260114054025_add_oauth_fields_to_users.rb
+
+
+):
+  
+activerecord (8.1.2) lib/active_record/migration.rb:743:in `check_pending_migrations'
+activerecord (8.1.2) lib/active_record/migration.rb:660:in `block (2 levels) in call'
+activesupport (8.1.2) lib/active_support/file_update_checker.rb:88:in `execute'
+activerecord (8.1.2) lib/active_record/migration.rb:665:in `block in call'
+activerecord (8.1.2) lib/active_record/migration.rb:657:in `synchronize'
+activerecord (8.1.2) lib/active_record/migration.rb:657:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (8.1.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (8.1.2) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/executor.rb:20:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (8.1.2) lib/rails/rack/logger.rb:41:in `call_app'
+railties (8.1.2) lib/rails/rack/logger.rb:29:in `call'
+propshaft (1.3.1) lib/propshaft/quiet_assets.rb:11:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/remote_ip.rb:98:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/request_id.rb:34:in `call'
+rack (3.2.4) lib/rack/method_override.rb:28:in `call'
+rack (3.2.4) lib/rack/runtime.rb:24:in `call'
+activesupport (8.1.2) lib/active_support/cache/strategy/local_cache_middleware.rb:30:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (8.1.2) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (8.1.2) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/executor.rb:20:in `call'
+propshaft (1.3.1) lib/propshaft/server.rb:37:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.2.4) lib/rack/sendfile.rb:131:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (8.1.2) lib/rails/engine.rb:534:in `call'
+puma (7.1.0) lib/puma/configuration.rb:300:in `call'
+puma (7.1.0) lib/puma/request.rb:101:in `block in handle_request'
+puma (7.1.0) lib/puma/thread_pool.rb:355:in `with_force_shutdown'
+puma (7.1.0) lib/puma/request.rb:100:in `handle_request'
+puma (7.1.0) lib/puma/server.rb:503:in `process_client'
+puma (7.1.0) lib/puma/server.rb:262:in `block in run'
+puma (7.1.0) lib/puma/thread_pool.rb:182:in `block in spawn_thread'
+Started POST "/rails/actions" for ::1 at 2026-01-17 21:07:15 -0600
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2088902219330617215) /*application='BacklogManager'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='BacklogManager'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (2.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-01-18 03:07:15.696995', '2026-01-18 03:07:15.696998') RETURNING "key" /*application='BacklogManager'*/[0m
+Migrating to CreateUsers (20260114053950)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='BacklogManager'*/[0m
+  [1m[35m (5.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying, "username" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='BacklogManager'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260114053950') RETURNING "version" /*application='BacklogManager'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT /*application='BacklogManager'*/[0m
+Migrating to CreateGames (20260114053956)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='BacklogManager'*/[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "games" ("id" bigserial primary key, "title" character varying, "description" text, "platform" character varying, "external_id" character varying, "release_date" date, "genre" character varying, "developer" character varying, "publisher" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='BacklogManager'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260114053956') RETURNING "version" /*application='BacklogManager'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='BacklogManager'*/[0m
+Migrating to CreateUserGames (20260114054001)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='BacklogManager'*/[0m
+  [1m[35m (5.4ms)[0m  [1m[35mCREATE TABLE "user_games" ("id" bigserial primary key, "user_id" bigint NOT NULL, "game_id" bigint NOT NULL, "status" character varying, "hours_played" decimal, "completion_percentage" integer, "priority" integer, "notes" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_a05b45437a"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_445132b40d"
+FOREIGN KEY ("game_id")
+  REFERENCES "games" ("id")
+) /*application='BacklogManager'*/[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE INDEX "index_user_games_on_user_id" ON "user_games" ("user_id") /*application='BacklogManager'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE INDEX "index_user_games_on_game_id" ON "user_games" ("game_id") /*application='BacklogManager'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260114054001') RETURNING "version" /*application='BacklogManager'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BacklogManager'*/[0m
+Migrating to CreateGameServices (20260114054008)
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='BacklogManager'*/[0m
+  [1m[35m (5.1ms)[0m  [1m[35mCREATE TABLE "game_services" ("id" bigserial primary key, "user_id" bigint NOT NULL, "service_name" character varying, "access_token" text, "refresh_token" text, "token_expires_at" timestamp(6), "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_42c0f93ab6"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='BacklogManager'*/[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_game_services_on_user_id" ON "game_services" ("user_id") /*application='BacklogManager'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260114054008') RETURNING "version" /*application='BacklogManager'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*application='BacklogManager'*/[0m
+Migrating to CreateRecommendations (20260114054013)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='BacklogManager'*/[0m
+  [1m[35m (5.3ms)[0m  [1m[35mCREATE TABLE "recommendations" ("id" bigserial primary key, "user_id" bigint NOT NULL, "game_id" bigint NOT NULL, "score" decimal, "reason" text, "ai_model" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_e696723f80"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_47f7d6ab93"
+FOREIGN KEY ("game_id")
+  REFERENCES "games" ("id")
+) /*application='BacklogManager'*/[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE INDEX "index_recommendations_on_user_id" ON "recommendations" ("user_id") /*application='BacklogManager'*/[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE INDEX "index_recommendations_on_game_id" ON "recommendations" ("game_id") /*application='BacklogManager'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260114054013') RETURNING "version" /*application='BacklogManager'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='BacklogManager'*/[0m
+Migrating to CreateIdentities (20260114054020)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='BacklogManager'*/[0m
+  [1m[35m (4.1ms)[0m  [1m[35mCREATE TABLE "identities" ("id" bigserial primary key, "user_id" bigint NOT NULL, "provider" character varying NOT NULL, "uid" character varying NOT NULL, "access_token" character varying, "refresh_token" character varying, "expires_at" timestamp(6), "extra_info" json, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_5373344100"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='BacklogManager'*/[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE INDEX "index_identities_on_user_id" ON "identities" ("user_id") /*application='BacklogManager'*/[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_identities_on_provider_and_uid" ON "identities" ("provider", "uid") /*application='BacklogManager'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260114054020') RETURNING "version" /*application='BacklogManager'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='BacklogManager'*/[0m
+Migrating to AddOauthFieldsToUsers (20260114054025)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='BacklogManager'*/[0m
+  [1m[35m (1.3ms)[0m  [1m[35mALTER TABLE "users" ADD "avatar_url" character varying /*application='BacklogManager'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "provider" character varying /*application='BacklogManager'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "uid" character varying /*application='BacklogManager'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_provider_and_uid" ON "users" ("provider", "uid") /*application='BacklogManager'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260114054025') RETURNING "version" /*application='BacklogManager'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='BacklogManager'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(2088902219330617215) /*application='BacklogManager'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='BacklogManager'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='BacklogManager'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='BacklogManager'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO "$user", public /*application='BacklogManager'*/[0m
+Started GET "/" for ::1 at 2026-01-17 21:07:15 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.4ms | GC: 0.2ms)
+Completed 200 OK in 15ms (Views: 6.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.2ms)
+
+
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2088902219330617215) /*application='BacklogManager'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='BacklogManager'*/[0m
+Migrating to AddSteamFieldsToIdentities (20260118032214)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='BacklogManager'*/[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "identities" ADD "steam_id" character varying /*application='BacklogManager'*/[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "identities" ADD "profile_visibility" character varying DEFAULT 'unknown' /*application='BacklogManager'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "identities" ADD "profile_last_checked_at" timestamp(6) /*application='BacklogManager'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "identities" ADD "profile_configured" boolean DEFAULT FALSE /*application='BacklogManager'*/[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_identities_on_steam_id" ON "identities" ("steam_id") WHERE steam_id IS NOT NULL /*application='BacklogManager'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260118032214') RETURNING "version" /*application='BacklogManager'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='BacklogManager'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(2088902219330617215) /*application='BacklogManager'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='BacklogManager'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO "$user", public /*application='BacklogManager'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='BacklogManager'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO "$user", public /*application='BacklogManager'*/[0m
+Started GET "/" for ::1 at 2026-01-17 21:33:09 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 3.9ms | GC: 0.1ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.1ms | GC: 0.1ms)
+Completed 200 OK in 7ms (Views: 6.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.1ms)
+
+
+Started POST "/auth/steam" for ::1 at 2026-01-17 21:33:13 -0600
+Started GET "/auth/steam/callback?_method=post&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Flogin&openid.claimed_id=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.identity=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fsteam%2Fcallback%3F_method%3Dpost&openid.response_nonce=2026-01-18T03%3A33%3A16ZTMPk6OgwBDfB7BqFHI4mvc9xhps%3D&openid.assoc_handle=1234567890&openid.signed=signed%2Cop_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=bfJsKJqyDiE7sX0%2FBP0pKboayTc%3D" for ::1 at 2026-01-17 21:33:16 -0600
+Processing by SessionsController#failure as HTML
+Can't verify CSRF token authenticity.
+Completed 422 Unprocessable Content in 1ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionController::InvalidAuthenticityToken (Can't verify CSRF token authenticity.)
+Caused by: NoMethodError (undefined method `[]' for nil)
+
+Information for: ActionController::InvalidAuthenticityToken (Can't verify CSRF token authenticity.):
+  
+config/initializers/omniauth.rb:40:in `block in <main>'
+
+Information for cause: NoMethodError (undefined method `[]' for nil):
+  
+omniauth-steam (1.0.6) lib/omniauth/strategies/steam.rb:49:in `player'
+omniauth-steam (1.0.6) lib/omniauth/strategies/steam.rb:35:in `block in <class:Steam>'
+omniauth (2.1.4) lib/omniauth/strategy.rb:109:in `instance_eval'
+omniauth (2.1.4) lib/omniauth/strategy.rb:109:in `block in compile_stack'
+omniauth (2.1.4) lib/omniauth/strategy.rb:108:in `each'
+omniauth (2.1.4) lib/omniauth/strategy.rb:108:in `inject'
+omniauth (2.1.4) lib/omniauth/strategy.rb:108:in `compile_stack'
+omniauth (2.1.4) lib/omniauth/strategy.rb:102:in `extra_stack'
+omniauth (2.1.4) lib/omniauth/strategy.rb:395:in `extra'
+omniauth (2.1.4) lib/omniauth/strategy.rb:400:in `auth_hash'
+omniauth (2.1.4) lib/omniauth/strategy.rb:425:in `callback_phase'
+omniauth-openid (2.0.2) lib/omniauth/strategies/open_id.rb:106:in `callback_phase'
+omniauth (2.1.4) lib/omniauth/strategy.rb:275:in `callback_call'
+omniauth (2.1.4) lib/omniauth/strategy.rb:194:in `call!'
+omniauth (2.1.4) lib/omniauth/strategy.rb:169:in `call'
+omniauth (2.1.4) lib/omniauth/strategy.rb:202:in `call!'
+omniauth (2.1.4) lib/omniauth/strategy.rb:169:in `call'
+omniauth (2.1.4) lib/omniauth/strategy.rb:202:in `call!'
+omniauth (2.1.4) lib/omniauth/strategy.rb:169:in `call'
+omniauth (2.1.4) lib/omniauth/builder.rb:48:in `call'
+rack (3.2.4) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.2.4) lib/rack/etag.rb:29:in `call'
+rack (3.2.4) lib/rack/conditional_get.rb:31:in `call'
+rack (3.2.4) lib/rack/head.rb:15:in `call'
+actionpack (8.1.2) lib/action_dispatch/http/content_security_policy.rb:38:in `call'
+rack-session (2.1.1) lib/rack/session/abstract/id.rb:274:in `context'
+rack-session (2.1.1) lib/rack/session/abstract/id.rb:268:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/cookies.rb:708:in `call'
+activerecord (8.1.2) lib/active_record/migration.rb:671:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (8.1.2) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (8.1.2) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/executor.rb:20:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (8.1.2) lib/rails/rack/logger.rb:41:in `call_app'
+railties (8.1.2) lib/rails/rack/logger.rb:29:in `call'
+propshaft (1.3.1) lib/propshaft/quiet_assets.rb:11:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/remote_ip.rb:98:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/request_id.rb:34:in `call'
+rack (3.2.4) lib/rack/method_override.rb:28:in `call'
+rack (3.2.4) lib/rack/runtime.rb:24:in `call'
+activesupport (8.1.2) lib/active_support/cache/strategy/local_cache_middleware.rb:30:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (8.1.2) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (8.1.2) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/executor.rb:20:in `call'
+propshaft (1.3.1) lib/propshaft/server.rb:37:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.2.4) lib/rack/sendfile.rb:131:in `call'
+actionpack (8.1.2) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (8.1.2) lib/rails/engine.rb:534:in `call'
+puma (7.1.0) lib/puma/configuration.rb:300:in `call'
+puma (7.1.0) lib/puma/request.rb:101:in `block in handle_request'
+puma (7.1.0) lib/puma/thread_pool.rb:355:in `with_force_shutdown'
+puma (7.1.0) lib/puma/request.rb:100:in `handle_request'
+puma (7.1.0) lib/puma/server.rb:503:in `process_client'
+puma (7.1.0) lib/puma/server.rb:262:in `block in run'
+puma (7.1.0) lib/puma/thread_pool.rb:182:in `block in spawn_thread'
+Started GET "/favicon.ico" for ::1 at 2026-01-17 21:33:16 -0600
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started GET "/auth/steam/callback?_method=post&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Flogin&openid.claimed_id=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.identity=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fsteam%2Fcallback%3F_method%3Dpost&openid.response_nonce=2026-01-18T03%3A33%3A16ZTMPk6OgwBDfB7BqFHI4mvc9xhps%3D&openid.assoc_handle=1234567890&openid.signed=signed%2Cop_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=bfJsKJqyDiE7sX0%2FBP0pKboayTc%3D" for ::1 at 2026-01-17 21:34:12 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+Started GET "/auth/failure?message=invalid_credentials" for ::1 at 2026-01-17 21:34:13 -0600
+Processing by SessionsController#failure as HTML
+  Parameters: {"message"=>"invalid_credentials"}
+Redirected to http://localhost:3000/
+↳ app/controllers/sessions_controller.rb:28:in `failure'
+Completed 302 Found in 9ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:34:13 -0600
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.2ms | GC: 0.0ms)
+Completed 200 OK in 11ms (Views: 7.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/auth/steam" for ::1 at 2026-01-17 21:34:17 -0600
+Started GET "/auth/steam/callback?_method=post&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Flogin&openid.claimed_id=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.identity=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fsteam%2Fcallback%3F_method%3Dpost&openid.response_nonce=2026-01-18T03%3A34%3A19ZEV3iEDTHFpLUbcVCzzUBI6%2B0rAw%3D&openid.assoc_handle=1234567890&openid.signed=signed%2Cop_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=faIjWrwIHKkNN2gb%2FsJINbTFQTU%3D" for ::1 at 2026-01-17 21:34:19 -0600
+Started GET "/auth/failure?message=undefined%20method%20%60[]%27%20for%20nil" for ::1 at 2026-01-17 21:34:19 -0600
+Processing by SessionsController#failure as HTML
+  Parameters: {"message"=>"undefined method `[]' for nil"}
+Redirected to http://localhost:3000/
+↳ app/controllers/sessions_controller.rb:28:in `failure'
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:34:19 -0600
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.5ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 3.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:35:14 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 3.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.7ms | GC: 0.0ms)
+Completed 200 OK in 17ms (Views: 6.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/auth/steam" for ::1 at 2026-01-17 21:35:16 -0600
+Started GET "/auth/steam/callback?_method=post&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Flogin&openid.claimed_id=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.identity=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fsteam%2Fcallback%3F_method%3Dpost&openid.response_nonce=2026-01-18T03%3A35%3A18Z%2BmbSUICtcxn5JhBlEuqXATL1Qx4%3D&openid.assoc_handle=1234567890&openid.signed=signed%2Cop_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=4FVwfWg8LiG7wz9As0YxZ6QvSb4%3D" for ::1 at 2026-01-17 21:35:18 -0600
+Started GET "/auth/failure?message=SSL_connect%20returned=1%20errno=0%20peeraddr=23.64.158.119:443%20state=error:%20certificate%20verify%20failed%20(unable%20to%20get%20certificate%20CRL)" for ::1 at 2026-01-17 21:35:18 -0600
+Processing by SessionsController#failure as HTML
+  Parameters: {"message"=>"SSL_connect returned=1 errno=0 peeraddr=23.64.158.119:443 state=error: certificate verify failed (unable to get certificate CRL)"}
+Redirected to http://localhost:3000/
+↳ app/controllers/sessions_controller.rb:28:in `failure'
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:35:18 -0600
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.8ms | GC: 0.0ms)
+Completed 200 OK in 3ms (Views: 2.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/auth/steam" for ::1 at 2026-01-17 21:35:56 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+Started GET "/auth/steam/callback?_method=post&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Flogin&openid.claimed_id=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.identity=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fsteam%2Fcallback%3F_method%3Dpost&openid.response_nonce=2026-01-18T03%3A35%3A57Zvr%2FkjO2KZPS1iNMsOedmjjdaR7Q%3D&openid.assoc_handle=1234567890&openid.signed=signed%2Cop_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=Mmnz%2Fl7VqIDiutOypVveag7Tw0A%3D" for ::1 at 2026-01-17 21:35:58 -0600
+Started GET "/auth/failure?message=SSL_connect%20returned=1%20errno=0%20peeraddr=23.64.158.119:443%20state=error:%20certificate%20verify%20failed%20(unable%20to%20get%20certificate%20CRL)" for ::1 at 2026-01-17 21:35:58 -0600
+Processing by SessionsController#failure as HTML
+  Parameters: {"message"=>"SSL_connect returned=1 errno=0 peeraddr=23.64.158.119:443 state=error: certificate verify failed (unable to get certificate CRL)"}
+Redirected to http://localhost:3000/
+↳ app/controllers/sessions_controller.rb:28:in `failure'
+Completed 302 Found in 11ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:35:58 -0600
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.4ms | GC: 0.0ms)
+Completed 200 OK in 11ms (Views: 6.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:35:59 -0600
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 3.1ms | GC: 1.8ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.2ms | GC: 1.8ms)
+Completed 200 OK in 6ms (Views: 4.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.8ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:36:01 -0600
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.3ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 2.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/auth/steam" for ::1 at 2026-01-17 21:36:05 -0600
+Started GET "/auth/steam/callback?_method=post&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Flogin&openid.claimed_id=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.identity=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fsteam%2Fcallback%3F_method%3Dpost&openid.response_nonce=2026-01-18T03%3A36%3A07ZVNf3I4A%2Bs41htPQbDWUOb8k29SM%3D&openid.assoc_handle=1234567890&openid.signed=signed%2Cop_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=2oTylfgX46s9Mg26SA4ZitLJv5A%3D" for ::1 at 2026-01-17 21:36:07 -0600
+Started GET "/auth/failure?message=SSL_connect%20returned=1%20errno=0%20peeraddr=23.64.158.119:443%20state=error:%20certificate%20verify%20failed%20(unable%20to%20get%20certificate%20CRL)" for ::1 at 2026-01-17 21:36:07 -0600
+Processing by SessionsController#failure as HTML
+  Parameters: {"message"=>"SSL_connect returned=1 errno=0 peeraddr=23.64.158.119:443 state=error: certificate verify failed (unable to get certificate CRL)"}
+Redirected to http://localhost:3000/
+↳ app/controllers/sessions_controller.rb:28:in `failure'
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:36:07 -0600
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.3ms | GC: 0.4ms)
+Completed 200 OK in 5ms (Views: 3.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:37:00 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 4.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.4ms | GC: 0.0ms)
+Completed 200 OK in 19ms (Views: 9.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/auth/steam" for ::1 at 2026-01-17 21:37:01 -0600
+WARNING: making https request to https://steamcommunity.com/openid without verifying server certificate; no CA path was specified.
+WARNING: making https request to https://steamcommunity.com/openid/login without verifying server certificate; no CA path was specified.
+Missing required parameter in response from https://steamcommunity.com/openid/login: <http://specs.openid.net/auth/2.0>assoc_type not in this message
+Generated checkid_setup request to https://steamcommunity.com/openid/login using stateless mode.
+Started GET "/auth/steam/callback?_method=post&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Flogin&openid.claimed_id=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.identity=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fsteam%2Fcallback%3F_method%3Dpost&openid.response_nonce=2026-01-18T03%3A37%3A03ZG3%2BVdxEOTfC20D9yh6x4HxRwiAY%3D&openid.assoc_handle=1234567890&openid.signed=signed%2Cop_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=LlXFPg5Zx8z%2BpI8dhZxG48SECG4%3D" for ::1 at 2026-01-17 21:37:03 -0600
+Using 'check_authentication' with https://steamcommunity.com/openid/login
+WARNING: making https request to https://steamcommunity.com/openid/login without verifying server certificate; no CA path was specified.
+Error attempting to use stored discovery information: OpenID::TypeURIMismatch
+Attempting discovery to verify endpoint
+Performing discovery on https://steamcommunity.com/openid/id/76561197986336107
+WARNING: making https request to https://steamcommunity.com/openid/id/76561197986336107 without verifying server certificate; no CA path was specified.
+Started GET "/auth/failure?message=SSL_connect%20returned=1%20errno=0%20peeraddr=23.64.158.119:443%20state=error:%20certificate%20verify%20failed%20(unable%20to%20get%20certificate%20CRL)" for ::1 at 2026-01-17 21:37:04 -0600
+Processing by SessionsController#failure as HTML
+  Parameters: {"message"=>"SSL_connect returned=1 errno=0 peeraddr=23.64.158.119:443 state=error: certificate verify failed (unable to get certificate CRL)"}
+Redirected to http://localhost:3000/
+↳ app/controllers/sessions_controller.rb:28:in `failure'
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:37:04 -0600
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.7ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 3.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:38:18 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 3.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.6ms | GC: 0.0ms)
+Completed 200 OK in 17ms (Views: 6.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/auth/steam" for ::1 at 2026-01-17 21:38:20 -0600
+Started GET "/auth/steam/callback?_method=post&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Flogin&openid.claimed_id=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.identity=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fsteam%2Fcallback%3F_method%3Dpost&openid.response_nonce=2026-01-18T03%3A38%3A22ZKG9Q13CVqbETcgFPe0aj44tOKog%3D&openid.assoc_handle=1234567890&openid.signed=signed%2Cop_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=ad%2FMYv25B2eXJEkwDTEPonvUm8E%3D" for ::1 at 2026-01-17 21:38:22 -0600
+Started GET "/auth/failure?message=SSL_connect%20returned=1%20errno=0%20peeraddr=23.64.158.119:443%20state=error:%20certificate%20verify%20failed%20(unable%20to%20get%20certificate%20CRL)" for ::1 at 2026-01-17 21:38:22 -0600
+Processing by SessionsController#failure as HTML
+  Parameters: {"message"=>"SSL_connect returned=1 errno=0 peeraddr=23.64.158.119:443 state=error: certificate verify failed (unable to get certificate CRL)"}
+Redirected to http://localhost:3000/
+↳ app/controllers/sessions_controller.rb:28:in `failure'
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:38:22 -0600
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.2ms | GC: 0.0ms)
+Completed 200 OK in 3ms (Views: 2.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:39:00 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 3.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.7ms | GC: 0.0ms)
+Completed 200 OK in 17ms (Views: 7.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/auth/steam" for ::1 at 2026-01-17 21:39:02 -0600
+Started GET "/auth/steam/callback?_method=post&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Flogin&openid.claimed_id=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.identity=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fsteam%2Fcallback%3F_method%3Dpost&openid.response_nonce=2026-01-18T03%3A39%3A03ZwMh7fb6qgczX4F83xsPwwBbUjUU%3D&openid.assoc_handle=1234567890&openid.signed=signed%2Cop_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=XtB0nUwN5PgqmqVAoYCKh%2F8FMsw%3D" for ::1 at 2026-01-17 21:39:04 -0600
+Started GET "/auth/failure?message=SSL_connect%20returned=1%20errno=0%20peeraddr=23.64.158.119:443%20state=error:%20certificate%20verify%20failed%20(unable%20to%20get%20certificate%20CRL)" for ::1 at 2026-01-17 21:39:04 -0600
+Processing by SessionsController#failure as HTML
+  Parameters: {"message"=>"SSL_connect returned=1 errno=0 peeraddr=23.64.158.119:443 state=error: certificate verify failed (unable to get certificate CRL)"}
+Redirected to http://localhost:3000/
+↳ app/controllers/sessions_controller.rb:28:in `failure'
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:39:04 -0600
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.6ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 3.2ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:39:49 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 3.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.3ms | GC: 0.0ms)
+Completed 200 OK in 18ms (Views: 7.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/auth/steam" for ::1 at 2026-01-17 21:39:51 -0600
+Started GET "/auth/steam/callback?_method=post&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Flogin&openid.claimed_id=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.identity=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fsteam%2Fcallback%3F_method%3Dpost&openid.response_nonce=2026-01-18T03%3A39%3A54ZsSR1IAlBVFT2b3vSBy1wRtfg%2BsA%3D&openid.assoc_handle=1234567890&openid.signed=signed%2Cop_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=3qUHofIbqVKUa0gUyqGw9SEGZv4%3D" for ::1 at 2026-01-17 21:39:54 -0600
+Started GET "/auth/failure?message=SSL_connect%20returned=1%20errno=0%20peeraddr=23.64.158.119:443%20state=error:%20certificate%20verify%20failed%20(unable%20to%20get%20certificate%20CRL)" for ::1 at 2026-01-17 21:39:55 -0600
+Processing by SessionsController#failure as HTML
+  Parameters: {"message"=>"SSL_connect returned=1 errno=0 peeraddr=23.64.158.119:443 state=error: certificate verify failed (unable to get certificate CRL)"}
+Redirected to http://localhost:3000/
+↳ app/controllers/sessions_controller.rb:28:in `failure'
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:39:55 -0600
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.4ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 3.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:40:51 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 3.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.7ms | GC: 0.0ms)
+Completed 200 OK in 18ms (Views: 7.2ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/auth/steam" for ::1 at 2026-01-17 21:40:53 -0600
+Started GET "/auth/steam/callback?_method=post&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Flogin&openid.claimed_id=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.identity=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fsteam%2Fcallback%3F_method%3Dpost&openid.response_nonce=2026-01-18T03%3A40%3A55ZPMZhEJPDPXqOWR%2FDspHyoR3Wgvk%3D&openid.assoc_handle=1234567890&openid.signed=signed%2Cop_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=99Ajzw%2FitxYaTgBg%2Ba5K0DmFwic%3D" for ::1 at 2026-01-17 21:40:55 -0600
+Started GET "/auth/failure?message=SSL_connect%20returned=1%20errno=0%20peeraddr=23.64.158.119:443%20state=error:%20certificate%20verify%20failed%20(unable%20to%20get%20certificate%20CRL)" for ::1 at 2026-01-17 21:40:55 -0600
+Processing by SessionsController#failure as HTML
+  Parameters: {"message"=>"SSL_connect returned=1 errno=0 peeraddr=23.64.158.119:443 state=error: certificate verify failed (unable to get certificate CRL)"}
+Redirected to http://localhost:3000/
+↳ app/controllers/sessions_controller.rb:28:in `failure'
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:40:55 -0600
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.3ms | GC: 0.0ms)
+Completed 200 OK in 3ms (Views: 2.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:41:47 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 3.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.1ms | GC: 0.0ms)
+Completed 200 OK in 17ms (Views: 7.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/auth/steam" for ::1 at 2026-01-17 21:41:49 -0600
+Started GET "/auth/steam/callback?_method=post&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Flogin&openid.claimed_id=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.identity=https%3A%2F%2Fsteamcommunity.com%2Fopenid%2Fid%2F76561197986336107&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fsteam%2Fcallback%3F_method%3Dpost&openid.response_nonce=2026-01-18T03%3A41%3A51ZOoUW5CsLaLeDakrQUcGKjZp3U04%3D&openid.assoc_handle=1234567890&openid.signed=signed%2Cop_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=xBiTXw443LDh3QTbPbtBPA6iX4A%3D" for ::1 at 2026-01-17 21:41:51 -0600
+Started GET "/auth/failure?message=SSL_connect%20returned=1%20errno=0%20peeraddr=23.64.158.119:443%20state=error:%20certificate%20verify%20failed%20(unable%20to%20get%20certificate%20CRL)" for ::1 at 2026-01-17 21:41:51 -0600
+Processing by SessionsController#failure as HTML
+  Parameters: {"message"=>"SSL_connect returned=1 errno=0 peeraddr=23.64.158.119:443 state=error: certificate verify failed (unable to get certificate CRL)"}
+Redirected to http://localhost:3000/
+↳ app/controllers/sessions_controller.rb:28:in `failure'
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:41:51 -0600
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.3ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 3.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2026-01-17 21:43:43 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='BacklogManager'*/[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 3.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.5ms | GC: 0.0ms)
+Completed 200 OK in 17ms (Views: 6.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/auth/steam" for ::1 at 2026-01-17 21:43:44 -0600
+  
+ActionController::RoutingError (No route matches [POST] "/auth/steam"):
+  

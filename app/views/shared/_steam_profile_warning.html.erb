@@ -1,0 +1,98 @@
+<% if current_user&.steam_connected? %>
+  <% steam_identity = current_user.steam_identity %>
+  
+  <div class="card p-6 mb-6">
+    <div class="flex items-start gap-4">
+      <div class="flex-shrink-0">
+        <% if steam_identity.extra_info&.dig("avatar_url") %>
+          <%= image_tag steam_identity.extra_info["avatar_url"], alt: "Steam Avatar", class: "w-16 h-16 rounded-lg" %>
+        <% else %>
+          <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2zm0 2a8 8 0 0 1 8 8 8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8zm-1 3v2h2V7h-2zm0 3v6h2v-6h-2z"/>
+            </svg>
+          </div>
+        <% end %>
+      </div>
+      
+      <div class="flex-1">
+        <div class="flex items-center gap-3 mb-2">
+          <h3 class="text-xl font-semibold text-white">
+            <%= steam_identity.extra_info&.dig("persona_name") || "Steam Account" %>
+          </h3>
+          
+          <% if steam_identity.public_profile? %>
+            <span class="inline-flex items-center gap-1 px-3 py-1 bg-green-500/20 text-green-400 text-sm font-medium rounded-full">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Public
+            </span>
+          <% elsif steam_identity.private_profile? %>
+            <span class="inline-flex items-center gap-1 px-3 py-1 bg-red-500/20 text-red-400 text-sm font-medium rounded-full">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+              </svg>
+              Private
+            </span>
+          <% else %>
+            <span class="inline-flex items-center gap-1 px-3 py-1 bg-yellow-500/20 text-yellow-400 text-sm font-medium rounded-full">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+              </svg>
+              <%= steam_identity.profile_visibility.titleize %>
+            </span>
+          <% end %>
+        </div>
+        
+        <p class="text-sm text-slate-400 mb-3">
+          Steam ID: <code class="text-slate-300"><%= steam_identity.steam_id %></code>
+        </p>
+        
+        <% unless steam_identity.public_profile? %>
+          <div class="bg-red-500/10 border border-red-500/30 rounded-lg p-4 mb-3">
+            <div class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+              </svg>
+              <div class="text-sm">
+                <p class="text-red-300 font-semibold mb-1">Profile Visibility Issue</p>
+                <p class="text-slate-300 mb-2">
+                  Your Steam profile is currently set to <strong><%= steam_identity.profile_visibility.titleize %></strong>. 
+                  We cannot sync your game library unless your profile is set to <strong>Public</strong>.
+                </p>
+                <a href="https://help.steampowered.com/en/faqs/view/588C-C67D-0251-C276" target="_blank" class="text-red-400 hover:text-red-300 underline">
+                  Learn how to change your privacy settings →
+                </a>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        
+        <% unless steam_identity.profile_configured %>
+          <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 mb-3">
+            <div class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <div class="text-sm">
+                <p class="text-yellow-300 font-semibold mb-1">Profile Not Configured</p>
+                <p class="text-slate-300">
+                  Your Steam community profile is not fully set up. Please configure your Steam profile to enable all features.
+                </p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        
+        <div class="flex items-center gap-3 text-sm text-slate-400">
+          <% if steam_identity.profile_last_checked_at %>
+            <span>Last checked: <%= time_ago_in_words(steam_identity.profile_last_checked_at) %> ago</span>
+          <% end %>
+          
+          <%= button_to "Refresh Status", refresh_steam_profile_path, method: :post, class: "text-blue-400 hover:text-blue-300 underline" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

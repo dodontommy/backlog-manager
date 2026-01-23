@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_14_054025) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_18_032214) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -43,12 +43,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_14_054025) do
     t.datetime "created_at", null: false
     t.datetime "expires_at"
     t.json "extra_info"
+    t.boolean "profile_configured", default: false
+    t.datetime "profile_last_checked_at"
+    t.string "profile_visibility", default: "unknown"
     t.string "provider", null: false
     t.string "refresh_token"
+    t.string "steam_id"
     t.string "uid", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["provider", "uid"], name: "index_identities_on_provider_and_uid", unique: true
+    t.index ["steam_id"], name: "index_identities_on_steam_id", unique: true, where: "(steam_id IS NOT NULL)"
     t.index ["user_id"], name: "index_identities_on_user_id"
   end
 
