@@ -1,6 +1,6 @@
 # Database Operations
 
-Run database commands for What The Game.
+Run database commands for Backlog Manager.
 
 ## Instructions
 

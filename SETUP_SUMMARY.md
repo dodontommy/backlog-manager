@@ -2,7 +2,7 @@
 
 ## What Has Been Completed
 
-This document summarizes the initial setup of the What The Game Rails application.
+This document summarizes the initial setup of the Backlog Manager Rails application.
 
 ### ✅ Completed Tasks
 
@@ -150,7 +150,7 @@ To continue development:
 ### 📊 Application Structure
 
 ```
-what-the-game/
+backlog-manager/
 ├── app/
 │   ├── controllers/      # Request handlers
 │   │   ├── games_controller.rb

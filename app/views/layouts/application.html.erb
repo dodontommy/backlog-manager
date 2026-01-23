@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="h-full">
   <head>
-    <title><%= content_for(:title) || "What The Game" %></title>
+    <title><%= content_for(:title) || "Backlog Manager" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="What The Game">
+    <meta name="application-name" content="Backlog Manager">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -32,9 +32,9 @@
             <div class="flex items-center">
               <%= link_to root_path, class: "flex items-center space-x-3 group" do %>
                 <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center transform group-hover:scale-105 transition-transform duration-200">
-                  <span class="text-white font-bold text-xl">W</span>
+                  <span class="text-white font-bold text-xl">B</span>
                 </div>
-                <span class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">What The Game</span>
+                <span class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Backlog Manager</span>
               <% end %>
             </div>
 
@@ -215,7 +215,7 @@
       <footer class="bg-slate-900/50 border-t border-slate-800/50 mt-auto">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div class="flex flex-col md:flex-row items-center justify-between">
-            <p class="text-slate-400 text-sm">&copy; <%= Time.current.year %> What The Game. Discover your next favorite game.</p>
+            <p class="text-slate-400 text-sm">&copy; <%= Time.current.year %> Backlog Manager. Discover your next favorite game.</p>
             <div class="flex items-center space-x-6 mt-4 md:mt-0">
               <a href="#" class="text-slate-400 hover:text-white transition-colors duration-200">About</a>
               <a href="#" class="text-slate-400 hover:text-white transition-colors duration-200">Privacy</a>

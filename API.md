@@ -1,6 +1,6 @@
 # API Documentation
 
-This document describes the planned API structure for What The Game.
+This document describes the planned API structure for Backlog Manager.
 
 ## Overview
 

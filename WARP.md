@@ -4,7 +4,7 @@ This file provides guidance to WARP (warp.dev) when working with code in this re
 
 ## Project Overview
 
-What The Game is a Ruby on Rails 8.1.2 application for managing gaming backlogs across multiple platforms (Steam, GOG, Epic Games) with AI-powered recommendations. This is an early-stage project with foundation models and services in place, but core integration features are not yet implemented.
+Backlog Manager is a Ruby on Rails 8.1.2 application for managing gaming backlogs across multiple platforms (Steam, GOG, Epic Games) with AI-powered recommendations. This is an early-stage project with foundation models and services in place, but core integration features are not yet implemented.
 
 ## Technology Stack
 

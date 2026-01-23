@@ -3,7 +3,7 @@
     "postgres": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-postgres", "${DATABASE_URL:-postgresql://localhost:5432/what_the_game_development}"],
+      "args": ["-y", "@modelcontextprotocol/server-postgres", "${DATABASE_URL:-postgresql://localhost:5432/backlog_manager_development}"],
       "env": {}
     },
     "github": {
@@ -37,24 +37,25 @@
     "filesystem": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/tbonderenka/Documents/GitHub/what-the-game"],
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/tbonderenka/Documents/GitHub/backlog-manager"],
       "env": {}
     },
     "igdb": {
-      "type": "stdio",
-      "command": "node",
-      "args": ["/Users/tbonderenka/Documents/GitHub/igdb-mcp-server/dist/index.js"],
+      "command": "npx",
+      "args": [
+        "-y",
+        "igdb-mcp-server"
+      ],
       "env": {
-        "IGDB_CLIENT_ID": "${IGDB_CLIENT_ID}",
-        "IGDB_CLIENT_SECRET": "${IGDB_CLIENT_SECRET}"
+        "IGDB_CLIENT_ID": "8d3rdkv6mlj65gzdloo2oke40lbm4a",
+        "IGDB_CLIENT_SECRET": "70i6i91ea7num82bipj8f2wfi637jd"
       }
     },
     "steam": {
-      "type": "stdio",
       "command": "npx",
-      "args": ["-y", "steam-mcp-server"],
+      "args": ["-y", "steam-mcp-server@1.2.1"],
       "env": {
-        "STEAM_API_KEY": "${STEAM_API_KEY}"
+        "STEAM_API_KEY": "DCF9173AEFC07CBA0887A05260B35D9C"
       }
     }
   }
