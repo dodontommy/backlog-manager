@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :game_services, dependent: :destroy
   has_many :recommendations, dependent: :destroy
   has_many :identities, dependent: :destroy
+  has_many :chat_sessions, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true, allow_blank: true
   validates :username, presence: true

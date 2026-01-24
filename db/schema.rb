@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_18_032214) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_24_030402) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "chat_sessions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "expires_at", null: false
+    t.jsonb "messages", default: [], null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["expires_at"], name: "index_chat_sessions_on_expires_at"
+    t.index ["user_id"], name: "index_chat_sessions_on_user_id"
+  end
 
   create_table "game_services", force: :cascade do |t|
     t.text "access_token"
@@ -94,6 +104,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_18_032214) do
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
   end
 
+  add_foreign_key "chat_sessions", "users"
   add_foreign_key "game_services", "users"
   add_foreign_key "identities", "users"
   add_foreign_key "recommendations", "games"
