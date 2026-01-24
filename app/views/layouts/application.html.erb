@@ -53,9 +53,9 @@
                 <div class="relative user-menu-container">
                   <button class="flex items-center space-x-3 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition-all duration-200 user-menu-button">
                     <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                      <span class="text-white font-semibold text-sm"><%= current_user.name&.first&.upcase || "U" %></span>
+                      <span class="text-white font-semibold text-sm"><%= current_user.username&.first&.upcase || "U" %></span>
                     </div>
-                    <span class="hidden md:block text-white font-medium"><%= current_user.name || "User" %></span>
+                    <span class="hidden md:block text-white font-medium"><%= current_user.username || "User" %></span>
                     <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
@@ -64,7 +64,7 @@
                   <!-- Dropdown Menu -->
                   <div class="user-menu-dropdown hidden absolute right-0 mt-2 w-56 bg-slate-800 rounded-lg shadow-xl border border-slate-700 overflow-hidden z-50">
                     <div class="px-4 py-3 border-b border-slate-700">
-                      <p class="text-white font-medium"><%= current_user.name %></p>
+                      <p class="text-white font-medium"><%= current_user.username %></p>
                       <p class="text-slate-400 text-sm truncate"><%= current_user.email %></p>
                     </div>
                     <div class="py-2">
