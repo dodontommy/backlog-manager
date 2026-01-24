@@ -25,19 +25,25 @@ class ToolExecutor
   def get_user_backlog(parameters)
     query = user.user_games.includes(:game)
 
-    # Filter by status if provided
-    if parameters[:status].present?
-      query = query.where(status: parameters[:status])
+    # Filter by status if provided (use string keys)
+    if parameters["status"].present?
+      query = query.where(status: parameters["status"])
     end
+
+    # Apply limit (default 50)
+    limit = parameters["limit"].present? ? parameters["limit"].to_i : 50
+    query = query.limit(limit)
 
     games = query.order(priority: :asc).map do |user_game|
       {
-        id: user_game.game.id,
-        name: user_game.game.title,
+        id: user_game.id,  # user_game id, not game id
+        game_id: user_game.game.id,
+        title: user_game.game.title,  # use 'title' not 'name'
         status: user_game.status,
         priority: user_game.priority,
         hours_played: user_game.hours_played,
-        notes: user_game.notes
+        notes: user_game.notes,
+        platform: user_game.game.platform  # platform from game table
       }
     end
 
@@ -45,16 +51,28 @@ class ToolExecutor
   end
 
   def update_game_status(parameters)
-    game = Game.find_by(id: parameters[:game_id])
+    # Use string keys and user_game_id parameter
+    user_game = user.user_games.find_by(id: parameters["user_game_id"])
 
-    unless game
-      return { success: false, error: "Game not found" }
+    unless user_game
+      return { success: false, error: "User game not found" }
     end
 
-    user_game = user.user_games.find_or_initialize_by(game: game)
+    # Build update attributes from parameters
+    update_attrs = {}
+    update_attrs[:status] = parameters["status"] if parameters["status"].present?
+    update_attrs[:priority] = parameters["priority"] if parameters["priority"].present?
+    update_attrs[:notes] = parameters["notes"] if parameters.key?("notes")  # Allow empty string
 
-    if user_game.update(status: parameters[:status])
-      { success: true, status: user_game.status, game_id: game.id }
+    if user_game.update(update_attrs)
+      {
+        success: true,
+        id: user_game.id,
+        game_id: user_game.game.id,
+        status: user_game.status,
+        priority: user_game.priority,
+        notes: user_game.notes
+      }
     else
       { success: false, error: user_game.errors.full_messages.join(", ") }
     end
