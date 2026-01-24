@@ -1,14 +1,30 @@
 class AnthropicService
-  attr_reader :session
+  SYSTEM_PROMPT = <<~PROMPT
+    You are a helpful gaming backlog assistant. You help users manage their game library
+    and decide what to play next. You have access to their backlog data and can provide
+    recommendations based on their playing history and preferences.
 
-  def initialize(session)
-    @session = session
-    @client = Anthropic::Client.new(access_token: ENV["ANTHROPIC_API_KEY"])
+    Be conversational, enthusiastic about games, and help users make decisions without
+    overwhelming them with choices. When recommending games, explain your reasoning briefly.
+  PROMPT
+
+  MAX_TOOL_DEPTH = 5
+
+  attr_reader :user, :chat_session
+
+  def initialize(user, chat_session)
+    @user = user
+    @chat_session = chat_session
+    @client = Anthropic::Client.new(
+      access_token: ENV["ANTHROPIC_API_KEY"],
+      request_timeout: 60
+    )
+    @tool_executor = ToolExecutor.new(user)
   end
 
   def send_message(user_message)
     # Add user message to session
-    session.add_message("user", user_message)
+    chat_session.add_message("user", user_message)
 
     # Build messages array
     messages = build_messages
@@ -17,15 +33,16 @@ class AnthropicService
       # Call Anthropic API
       response = @client.messages(
         parameters: {
-          model: "claude-sonnet-4-20250514",
+          model: "claude-sonnet-4-5-20250929",
           max_tokens: 4096,
+          system: SYSTEM_PROMPT,
           messages: messages,
           tools: tool_definitions
         }
       )
 
-      # Handle response
-      handle_response(response)
+      # Handle response with depth tracking
+      handle_response(response, 0)
     rescue StandardError => e
       Rails.logger.error "Anthropic API error: #{e.message}"
       "I'm sorry, I encountered an error processing your request. Please try again."
@@ -35,7 +52,7 @@ class AnthropicService
   private
 
   def build_messages(new_message = nil)
-    messages = session.messages.map do |msg|
+    messages = chat_session.messages.map do |msg|
       {
         "role" => msg["role"],
         "content" => msg["content"]
@@ -52,52 +69,66 @@ class AnthropicService
     messages
   end
 
-  def handle_response(response)
+  def handle_response(response, depth = 0)
     content = response["content"]
 
     # Check for tool use
     tool_uses = content.select { |block| block["type"] == "tool_use" }
 
     if tool_uses.any?
+      # Check recursion depth limit
+      if depth >= MAX_TOOL_DEPTH
+        Rails.logger.warn "Max tool depth (#{MAX_TOOL_DEPTH}) reached, stopping recursion"
+        text_response = extract_text(content)
+        chat_session.add_message("assistant", text_response.presence || "I've reached my processing limit. Please try again.")
+        return text_response.presence || "I've reached my processing limit. Please try again."
+      end
+
       # Execute tools and get results
       tool_results = tool_uses.map do |tool_use|
         execute_tool(tool_use)
       end
 
       # Add assistant message with tool calls
-      session.add_message("assistant", extract_text(content), tool_uses)
+      chat_session.add_message("assistant", extract_text(content), tool_uses)
 
-      # Add tool results
-      tool_results.each do |result|
-        session.add_message("user", result[:content], nil)
+      # Build tool result message content
+      tool_result_content = tool_results.map do |result|
+        {
+          "type" => "tool_result",
+          "tool_use_id" => result[:tool_use_id],
+          "content" => result[:content]
+        }
       end
+
+      # Add tool results as user message
+      chat_session.add_message("user", tool_result_content)
 
       # Make another API call with tool results
       follow_up_response = @client.messages(
         parameters: {
-          model: "claude-sonnet-4-20250514",
+          model: "claude-sonnet-4-5-20250929",
           max_tokens: 4096,
+          system: SYSTEM_PROMPT,
           messages: build_messages,
           tools: tool_definitions
         }
       )
 
-      # Handle follow-up response
-      handle_response(follow_up_response)
+      # Handle follow-up response with incremented depth
+      handle_response(follow_up_response, depth + 1)
     else
       # No tool use, just text response
       text_response = extract_text(content)
-      session.add_message("assistant", text_response)
+      chat_session.add_message("assistant", text_response)
       text_response
     end
   end
 
   def execute_tool(tool_use)
-    executor = ToolExecutor.new(session.user)
-    result = executor.execute(tool_use["name"], tool_use["input"])
+    result = @tool_executor.execute(tool_use["name"], tool_use["input"])
 
     {
-      type: "tool_result",
       tool_use_id: tool_use["id"],
       content: result.to_json
     }
