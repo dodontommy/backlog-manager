@@ -1,4 +1,6 @@
 ENV["RAILS_ENV"] ||= "test"
+ENV["ANTHROPIC_API_KEY"] ||= "sk-ant-test-key-123"
+
 require_relative "../config/environment"
 require "rails/test_help"
 require "mocha/minitest"
