@@ -13,6 +13,9 @@
 # Used by dotenv library to load environment variables.
 .env
 
+# MCP server configuration (contains API keys)
+.mcp.json
+
 # Ignore Byebug command history file.
 .byebug_history
 
