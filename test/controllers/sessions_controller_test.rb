@@ -38,9 +38,9 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
       provider: "google_oauth2",
       uid: "logout123"
     )
-    
+
     delete logout_path, env: { "rack.session" => { user_id: user.id } }
-    
+
     # Verify logout
     assert_redirected_to root_path
     assert_equal "Successfully logged out.", flash[:notice]
@@ -72,11 +72,11 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:steam]
     get "/auth/steam/callback"
-    
+
     assert_redirected_to root_path
     assert_not_nil session[:user_id]
     assert_match(/public and ready for game syncing/, flash[:notice])
-    
+
     # Verify identity was created with Steam ID
     user = User.find(session[:user_id])
     identity = user.identities.find_by(provider: "steam")
@@ -109,11 +109,11 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:steam]
     get "/auth/steam/callback"
-    
+
     assert_redirected_to root_path
     assert_not_nil session[:user_id]
     assert_match(/profile is set to Private/, flash[:alert])
-    
+
     # Verify identity was created
     user = User.find(session[:user_id])
     identity = user.identities.find_by(provider: "steam")
@@ -144,7 +144,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:steam]
     get "/auth/steam/callback"
-    
+
     assert_redirected_to root_path
     assert_match(/community profile is not set up/, flash[:alert])
   end
@@ -166,7 +166,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:steam]
     get "/auth/steam/callback"
-    
+
     assert_redirected_to root_path
     assert_match(/couldn't verify your profile visibility/, flash[:alert])
   end
@@ -179,7 +179,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
       provider: "steam",
       uid: "76561198033333333"
     )
-    
+
     identity = Identity.create!(
       user: user,
       provider: "steam",
@@ -199,10 +199,10 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     # Refresh Steam profile with user logged in
     post refresh_steam_profile_path, env: { "rack.session" => { user_id: user.id } }
-    
+
     assert_redirected_to user_games_path
     assert_match(/public and ready for syncing/, flash[:notice])
-    
+
     # Verify visibility was updated
     identity.reload
     assert_equal "public", identity.profile_visibility
@@ -215,10 +215,10 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
       provider: "google_oauth2",
       uid: "nosteam123"
     )
-    
+
     # Refresh without Steam connection
     post refresh_steam_profile_path, env: { "rack.session" => { user_id: user.id } }
-    
+
     assert_redirected_to user_games_path
     assert_equal "No Steam account connected.", flash[:alert]
   end

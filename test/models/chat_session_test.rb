@@ -31,7 +31,7 @@ class ChatSessionTest < ActiveSupport::TestCase
 
   test "should add assistant message with tool calls" do
     session = chat_sessions(:one)
-    tool_calls = [{ "type" => "tool_use", "id" => "1", "name" => "get_user_backlog" }]
+    tool_calls = [ { "type" => "tool_use", "id" => "1", "name" => "get_user_backlog" } ]
     session.add_message("assistant", "Let me check your backlog", tool_calls)
 
     message = session.messages.first

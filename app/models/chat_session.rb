@@ -7,7 +7,7 @@ class ChatSession < ApplicationRecord
     message = { "role" => role, "content" => content }
     message["tool_calls"] = tool_calls if tool_calls.present?
 
-    self.messages = messages + [message]
+    self.messages = messages + [ message ]
     save!
   end
 

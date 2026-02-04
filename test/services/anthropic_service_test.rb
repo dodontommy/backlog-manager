@@ -50,7 +50,7 @@ class AnthropicServiceTest < ActiveSupport::TestCase
           id: "msg_123",
           type: "message",
           role: "assistant",
-          content: [{ type: "text", text: "Here are your games..." }],
+          content: [ { type: "text", text: "Here are your games..." } ],
           stop_reason: "end_turn"
         }.to_json,
         headers: { "Content-Type" => "application/json" }
@@ -96,7 +96,7 @@ class AnthropicServiceTest < ActiveSupport::TestCase
           id: "msg_456",
           type: "message",
           role: "assistant",
-          content: [{ type: "text", text: "You have 5 games in your backlog" }],
+          content: [ { type: "text", text: "You have 5 games in your backlog" } ],
           stop_reason: "end_turn"
         }.to_json,
         headers: { "Content-Type" => "application/json" }
@@ -115,7 +115,7 @@ class AnthropicServiceTest < ActiveSupport::TestCase
           id: "msg_123",
           type: "message",
           role: "assistant",
-          content: [{ type: "text", text: "Response" }],
+          content: [ { type: "text", text: "Response" } ],
           stop_reason: "end_turn"
         }.to_json,
         headers: { "Content-Type" => "application/json" }
@@ -158,7 +158,7 @@ class AnthropicServiceTest < ActiveSupport::TestCase
           id: "msg_123",
           type: "message",
           role: "assistant",
-          content: [{ type: "text", text: "Response" }],
+          content: [ { type: "text", text: "Response" } ],
           stop_reason: "end_turn"
         }.to_json,
         headers: { "Content-Type" => "application/json" }
@@ -199,7 +199,7 @@ class AnthropicServiceTest < ActiveSupport::TestCase
           id: "msg_456",
           type: "message",
           role: "assistant",
-          content: [{ type: "text", text: "Final response" }],
+          content: [ { type: "text", text: "Final response" } ],
           stop_reason: "end_turn"
         }.to_json,
         headers: { "Content-Type" => "application/json" }

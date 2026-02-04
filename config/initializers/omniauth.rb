@@ -39,9 +39,9 @@ end
 # Configure OmniAuth to handle errors gracefully
 OmniAuth.config.on_failure = Proc.new { |env|
   # Redirect to the failure action
-  env['omniauth.error.type'] ||= 'unknown'
-  message = env['omniauth.error.type']
-  [302, {'Location' => "/auth/failure?message=#{message}", 'Content-Type' => 'text/html'}, []]
+  env["omniauth.error.type"] ||= "unknown"
+  message = env["omniauth.error.type"]
+  [ 302, { "Location" => "/auth/failure?message=#{message}", "Content-Type" => "text/html" }, [] ]
 }
 
 # Allow HTTP in development (for local testing)

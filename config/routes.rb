@@ -11,9 +11,9 @@ Rails.application.routes.draw do
   post "/steam/refresh_profile", to: "sessions#refresh_steam_profile", as: :refresh_steam_profile
 
   # Resource routes
-  resources :games, only: [:index, :show]
-  resources :user_games, only: [:index]
-  resources :recommendations, only: [:index]
+  resources :games, only: [ :index, :show ]
+  resources :user_games, only: [ :index ]
+  resources :recommendations, only: [ :index ]
 
   # Chat routes
   get "chat", to: "chat#index"

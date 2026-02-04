@@ -220,7 +220,7 @@ class AnthropicService
           properties: {
             status: {
               type: "string",
-              enum: ["backlog", "playing", "completed", "abandoned", "wishlist"],
+              enum: [ "backlog", "playing", "completed", "abandoned", "wishlist" ],
               description: "Filter games by status"
             },
             limit: {
@@ -241,7 +241,7 @@ class AnthropicService
               description: "Search query (game name or keyword)"
             }
           },
-          required: ["query"]
+          required: [ "query" ]
         }
       },
       {
@@ -255,7 +255,7 @@ class AnthropicService
               description: "IGDB game ID"
             }
           },
-          required: ["game_id"]
+          required: [ "game_id" ]
         }
       },
       {
@@ -270,7 +270,7 @@ class AnthropicService
             },
             status: {
               type: "string",
-              enum: ["backlog", "playing", "completed", "abandoned", "wishlist"],
+              enum: [ "backlog", "playing", "completed", "abandoned", "wishlist" ],
               description: "Initial status for the game"
             },
             priority: {
@@ -278,7 +278,7 @@ class AnthropicService
               description: "Priority level (1-5)"
             }
           },
-          required: ["game_id"]
+          required: [ "game_id" ]
         }
       },
       {
@@ -293,7 +293,7 @@ class AnthropicService
             },
             status: {
               type: "string",
-              enum: ["backlog", "playing", "completed", "abandoned", "wishlist"],
+              enum: [ "backlog", "playing", "completed", "abandoned", "wishlist" ],
               description: "New status"
             },
             priority: {
@@ -305,7 +305,7 @@ class AnthropicService
               description: "Notes about the game"
             }
           },
-          required: ["user_game_id"]
+          required: [ "user_game_id" ]
         }
       },
       {

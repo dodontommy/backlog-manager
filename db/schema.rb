@@ -20,8 +20,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_24_030402) do
     t.jsonb "messages", default: [], null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-    t.index ["expires_at"], name: "index_chat_sessions_on_expires_at"
-    t.index ["user_id"], name: "index_chat_sessions_on_user_id"
+    t.index [ "expires_at" ], name: "index_chat_sessions_on_expires_at"
+    t.index [ "user_id" ], name: "index_chat_sessions_on_user_id"
   end
 
   create_table "game_services", force: :cascade do |t|
@@ -32,7 +32,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_24_030402) do
     t.datetime "token_expires_at"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_game_services_on_user_id"
+    t.index [ "user_id" ], name: "index_game_services_on_user_id"
   end
 
   create_table "games", force: :cascade do |t|
@@ -62,9 +62,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_24_030402) do
     t.string "uid", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-    t.index ["provider", "uid"], name: "index_identities_on_provider_and_uid", unique: true
-    t.index ["steam_id"], name: "index_identities_on_steam_id", unique: true, where: "(steam_id IS NOT NULL)"
-    t.index ["user_id"], name: "index_identities_on_user_id"
+    t.index [ "provider", "uid" ], name: "index_identities_on_provider_and_uid", unique: true
+    t.index [ "steam_id" ], name: "index_identities_on_steam_id", unique: true, where: "(steam_id IS NOT NULL)"
+    t.index [ "user_id" ], name: "index_identities_on_user_id"
   end
 
   create_table "recommendations", force: :cascade do |t|
@@ -75,8 +75,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_24_030402) do
     t.decimal "score"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-    t.index ["game_id"], name: "index_recommendations_on_game_id"
-    t.index ["user_id"], name: "index_recommendations_on_user_id"
+    t.index [ "game_id" ], name: "index_recommendations_on_game_id"
+    t.index [ "user_id" ], name: "index_recommendations_on_user_id"
   end
 
   create_table "user_games", force: :cascade do |t|
@@ -89,8 +89,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_24_030402) do
     t.string "status"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-    t.index ["game_id"], name: "index_user_games_on_game_id"
-    t.index ["user_id"], name: "index_user_games_on_user_id"
+    t.index [ "game_id" ], name: "index_user_games_on_game_id"
+    t.index [ "user_id" ], name: "index_user_games_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -101,7 +101,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_24_030402) do
     t.string "uid"
     t.datetime "updated_at", null: false
     t.string "username"
-    t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
+    t.index [ "provider", "uid" ], name: "index_users_on_provider_and_uid", unique: true
   end
 
   add_foreign_key "chat_sessions", "users"
