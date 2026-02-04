@@ -59,26 +59,41 @@ export default class extends Controller {
     // Read streaming response
     const reader = response.body.getReader()
     const decoder = new TextDecoder()
+    let buffer = '' // Buffer for incomplete messages
 
     while (true) {
       const { done, value } = await reader.read()
       if (done) break
 
-      const chunk = decoder.decode(value)
-      const lines = chunk.split('\n\n')
+      // Append new chunk to buffer
+      buffer += decoder.decode(value, { stream: true })
 
-      for (const line of lines) {
-        if (line.startsWith('data: ')) {
-          const data = JSON.parse(line.slice(6))
+      // Split by SSE message delimiter
+      const messages = buffer.split('\n\n')
 
-          if (data.type === 'text') {
-            contentDiv.textContent += data.content
-            this.scrollToBottom()
-          } else if (data.type === 'error') {
-            contentDiv.textContent += `\n\nError: ${data.content}`
-          } else if (data.type === 'done') {
-            // Message complete
-            break
+      // Keep the last (potentially incomplete) message in buffer
+      buffer = messages.pop() || ''
+
+      // Process complete messages
+      for (const message of messages) {
+        if (message.startsWith('data: ')) {
+          try {
+            const data = JSON.parse(message.slice(6))
+
+            if (data.type === 'session_id') {
+              // Store session ID for subsequent requests
+              this.sessionIdValue = data.session_id
+            } else if (data.type === 'text') {
+              contentDiv.textContent += data.content
+              this.scrollToBottom()
+            } else if (data.type === 'error') {
+              contentDiv.textContent += `\n\nError: ${data.content}`
+            } else if (data.type === 'done') {
+              // Message complete
+              return
+            }
+          } catch (e) {
+            console.error('Failed to parse SSE message:', message, e)
           }
         }
       }

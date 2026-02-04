@@ -4,11 +4,13 @@ class ChatSession < ApplicationRecord
   before_validation :set_default_expiration, on: :create
 
   def add_message(role, content, tool_calls = nil)
-    message = { "role" => role, "content" => content }
-    message["tool_calls"] = tool_calls if tool_calls.present?
+    with_lock do
+      message = { "role" => role, "content" => content }
+      message["tool_calls"] = tool_calls if tool_calls.present?
 
-    self.messages = messages + [ message ]
-    save!
+      self.messages = messages + [ message ]
+      save!
+    end
   end
 
   def clear_messages

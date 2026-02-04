@@ -49,7 +49,7 @@ Anthropic API (Claude Sonnet 4.5)
 **Purpose:** Fetch user's games with filtering
 **Status:** ✅ Implemented
 **Parameters:**
-- `status` (optional): filter by backlog/playing/completed/abandoned
+- `status` (optional): filter by backlog/playing/completed/abandoned/wishlist
 - `limit` (optional): max results, default 50
 
 **Returns:** Array of games with status, hours_played, priority, rating

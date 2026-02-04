@@ -20,6 +20,9 @@ class ChatController < ApplicationController
       return
     end
 
+    # Send session ID to frontend
+    response.stream.write("data: #{({ type: "session_id", session_id: session.id }).to_json}\n\n")
+
     # Use AnthropicService with streaming
     service = AnthropicService.new(session.user, session)
 

@@ -62,6 +62,7 @@ class ToolExecutor
     update_attrs = {}
     update_attrs[:status] = parameters["status"] if parameters["status"].present?
     update_attrs[:priority] = parameters["priority"] if parameters["priority"].present?
+    update_attrs[:rating] = parameters["rating"] if parameters["rating"].present?
     update_attrs[:notes] = parameters["notes"] if parameters.key?("notes")  # Allow empty string
 
     if user_game.update(update_attrs)
@@ -71,6 +72,7 @@ class ToolExecutor
         game_id: user_game.game.id,
         status: user_game.status,
         priority: user_game.priority,
+        rating: user_game.rating,
         notes: user_game.notes
       }
     else

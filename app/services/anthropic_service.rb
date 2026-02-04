@@ -56,7 +56,7 @@ class AnthropicService
 
   private
 
-  def send_message_streaming(messages, &block)
+  def send_message_streaming(messages, depth = 0, &block)
     accumulated_text = ""
     tool_uses = []
 
@@ -90,6 +90,14 @@ class AnthropicService
       when "message_stop"
         # Message complete
         if tool_uses.any?
+          # Check recursion depth limit
+          if depth >= MAX_TOOL_DEPTH
+            Rails.logger.warn "Max tool depth (#{MAX_TOOL_DEPTH}) reached in streaming, stopping recursion"
+            chat_session.add_message("assistant", accumulated_text.presence || "I've reached my processing limit.")
+            block.call({ type: "done" })
+            return
+          end
+
           # Parse tool inputs and execute tools
           tool_uses.each do |tool_use|
             tool_use["input"] = JSON.parse(tool_use["input"]) if tool_use["input"].is_a?(String)
@@ -111,8 +119,8 @@ class AnthropicService
           end
           chat_session.add_message("user", tool_result_content)
 
-          # Continue conversation with tool results
-          send_message_streaming(build_messages, &block)
+          # Continue conversation with tool results (increment depth)
+          send_message_streaming(build_messages, depth + 1, &block)
         else
           # No tool use, save the text response
           chat_session.add_message("assistant", accumulated_text)
