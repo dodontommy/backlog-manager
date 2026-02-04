@@ -6,24 +6,34 @@ class ChatController < ApplicationController
   end
 
   def create
+    # Set headers for SSE
+    response.headers["Content-Type"] = "text/event-stream"
+    response.headers["Cache-Control"] = "no-cache"
+    response.headers["X-Accel-Buffering"] = "no"
+
     session = find_or_create_session
     message = params[:message]
 
     if message.blank?
-      return render json: { error: "Message cannot be blank" }, status: :unprocessable_entity
+      response.stream.write("data: #{({ type: "error", content: "Message cannot be blank" }).to_json}\n\n")
+      response.stream.close
+      return
     end
 
-    # Use AnthropicService to get response
+    # Use AnthropicService with streaming
     service = AnthropicService.new(session.user, session)
-    response_text = service.send_message(message)
 
-    render json: {
-      response: response_text,
-      session_id: session.id
-    }
+    service.send_message(message) do |chunk|
+      response.stream.write("data: #{chunk.to_json}\n\n")
+    end
+
+  rescue IOError
+    # Client disconnected
   rescue StandardError => e
     Rails.logger.error "Chat error: #{e.message}\n#{e.backtrace.join("\n")}"
-    render json: { error: "An error occurred processing your message" }, status: :internal_server_error
+    response.stream.write("data: #{({ type: "error", content: "An error occurred" }).to_json}\n\n")
+  ensure
+    response.stream.close
   end
 
   private

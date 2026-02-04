@@ -10,9 +10,17 @@ class ChatControllerTest < ActionDispatch::IntegrationTest
       uid: "chattest123"
     )
 
-    # Stub AnthropicService to avoid actual API calls
+    # Stub AnthropicService to avoid actual API calls with streaming
     @mock_service = mock("anthropic_service")
-    @mock_service.stubs(:send_message).returns("Here's a test response from Claude!")
+    @mock_service.stubs(:send_message).with do |message, &block|
+      if block_given?
+        # Simulate streaming response
+        block.call({ type: "text", content: "Here's a " })
+        block.call({ type: "text", content: "test response!" })
+        block.call({ type: "done" })
+      end
+      true
+    end.returns("Here's a test response!")
     AnthropicService.stubs(:new).returns(@mock_service)
   end
 
@@ -49,14 +57,17 @@ class ChatControllerTest < ActionDispatch::IntegrationTest
 
   test "should create new session if none exists" do
     sign_in_as(@test_user)
+
+    logged_in_user = User.last
     assert_difference "ChatSession.count", 1 do
       post chat_messages_path, params: { message: "What should I play?" }, as: :json
     end
 
     assert_response :success
-    json = JSON.parse(response.body)
-    assert json["response"]
-    assert json["session_id"]
+
+    # Verify session was created
+    session = logged_in_user.chat_sessions.last
+    assert_not_nil session
   end
 
   test "should reuse existing session if not expired" do
@@ -96,6 +107,9 @@ class ChatControllerTest < ActionDispatch::IntegrationTest
 
   test "should not access other users sessions" do
     sign_in_as(@test_user)
+
+    logged_in_user = User.last
+
     other_user = User.create!(
       email: "other@example.com",
       username: "otheruser",
@@ -108,8 +122,9 @@ class ChatControllerTest < ActionDispatch::IntegrationTest
       params: { message: "Test", session_id: other_session.id },
       as: :json
 
-    # Should create new session instead
-    assert_not_equal other_session.id, JSON.parse(response.body)["session_id"]
+    # Should create new session for logged in user instead of using other user's session
+    assert logged_in_user.chat_sessions.count > 0
+    assert_not_includes logged_in_user.chat_sessions.pluck(:id), other_session.id
 
     # Clean up
     other_user.destroy

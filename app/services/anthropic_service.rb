@@ -22,7 +22,7 @@ class AnthropicService
     @tool_executor = ToolExecutor.new(user)
   end
 
-  def send_message(user_message)
+  def send_message(user_message, &block)
     # Add user message to session
     chat_session.add_message("user", user_message)
 
@@ -30,26 +30,97 @@ class AnthropicService
     messages = build_messages
 
     begin
-      # Call Anthropic API
-      response = @client.messages(
-        parameters: {
-          model: "claude-sonnet-4-5-20250929",
-          max_tokens: 4096,
-          system: SYSTEM_PROMPT,
-          messages: messages,
-          tools: tool_definitions
-        }
-      )
-
-      # Handle response with depth tracking
-      handle_response(response, 0)
+      if block_given?
+        # Streaming mode
+        send_message_streaming(messages, &block)
+      else
+        # Non-streaming mode (for tests)
+        response = @client.messages(
+          parameters: {
+            model: "claude-sonnet-4-5-20250929",
+            max_tokens: 4096,
+            system: SYSTEM_PROMPT,
+            messages: messages,
+            tools: tool_definitions
+          }
+        )
+        handle_response(response, 0)
+      end
     rescue StandardError => e
       Rails.logger.error "Anthropic API error: #{e.message}"
-      "I'm sorry, I encountered an error processing your request. Please try again."
+      error_message = "I'm sorry, I encountered an error processing your request. Please try again."
+      block.call({ type: "error", content: error_message }) if block_given?
+      error_message
     end
   end
 
   private
+
+  def send_message_streaming(messages, &block)
+    accumulated_text = ""
+    tool_uses = []
+
+    @client.messages(
+      parameters: {
+        model: "claude-sonnet-4-5-20250929",
+        max_tokens: 4096,
+        system: SYSTEM_PROMPT,
+        messages: messages,
+        tools: tool_definitions,
+        stream: true
+      }
+    ) do |event|
+      case event.event
+      when "content_block_start"
+        # New content block starting
+        if event.content_block && event.content_block["type"] == "tool_use"
+          tool_uses << event.content_block
+        end
+      when "content_block_delta"
+        if event.delta["type"] == "text_delta"
+          # Stream text chunk
+          text_chunk = event.delta["text"]
+          accumulated_text += text_chunk
+          block.call({ type: "text", content: text_chunk })
+        elsif event.delta["type"] == "input_json_delta"
+          # Tool input being streamed - accumulate it
+          tool_uses.last["input"] ||= ""
+          tool_uses.last["input"] += event.delta["partial_json"]
+        end
+      when "message_stop"
+        # Message complete
+        if tool_uses.any?
+          # Parse tool inputs and execute tools
+          tool_uses.each do |tool_use|
+            tool_use["input"] = JSON.parse(tool_use["input"]) if tool_use["input"].is_a?(String)
+          end
+
+          # Save assistant message with tool calls
+          chat_session.add_message("assistant", accumulated_text, tool_uses)
+
+          # Execute tools
+          tool_results = tool_uses.map { |tool_use| execute_tool(tool_use) }
+
+          # Add tool results
+          tool_result_content = tool_results.map do |result|
+            {
+              "type" => "tool_result",
+              "tool_use_id" => result[:tool_use_id],
+              "content" => result[:content]
+            }
+          end
+          chat_session.add_message("user", tool_result_content)
+
+          # Continue conversation with tool results
+          send_message_streaming(build_messages, &block)
+        else
+          # No tool use, save the text response
+          chat_session.add_message("assistant", accumulated_text)
+          block.call({ type: "done" })
+        end
+      end
+    end
+  end
 
   def build_messages(new_message = nil)
     messages = chat_session.messages.map do |msg|

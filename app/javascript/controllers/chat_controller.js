@@ -20,26 +20,22 @@ export default class extends Controller {
     this.inputTarget.value = ""
     this.inputTarget.disabled = true
 
+    // Create assistant message div for streaming
+    const assistantMessageDiv = this.createMessageDiv("assistant")
+    const contentDiv = assistantMessageDiv.querySelector(".message-content")
+
     try {
-      // Send to server
-      const response = await this.sendMessage(message)
-
-      // Add assistant response
-      this.addMessage("assistant", response.response)
-
-      // Update session ID
-      this.sessionIdValue = response.session_id
-
+      await this.streamMessage(message, contentDiv)
     } catch (error) {
       console.error("Chat error:", error)
-      this.addMessage("system", "Sorry, something went wrong. Please try again.")
+      contentDiv.textContent = "Sorry, something went wrong. Please try again."
     } finally {
       this.inputTarget.disabled = false
       this.inputTarget.focus()
     }
   }
 
-  async sendMessage(message) {
+  async streamMessage(message, contentDiv) {
     const url = "/chat/messages"
     const body = { message }
 
@@ -60,21 +56,53 @@ export default class extends Controller {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
 
-    return await response.json()
+    // Read streaming response
+    const reader = response.body.getReader()
+    const decoder = new TextDecoder()
+
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break
+
+      const chunk = decoder.decode(value)
+      const lines = chunk.split('\n\n')
+
+      for (const line of lines) {
+        if (line.startsWith('data: ')) {
+          const data = JSON.parse(line.slice(6))
+
+          if (data.type === 'text') {
+            contentDiv.textContent += data.content
+            this.scrollToBottom()
+          } else if (data.type === 'error') {
+            contentDiv.textContent += `\n\nError: ${data.content}`
+          } else if (data.type === 'done') {
+            // Message complete
+            break
+          }
+        }
+      }
+    }
   }
 
   addMessage(role, content) {
+    const messageDiv = this.createMessageDiv(role)
+    const contentDiv = messageDiv.querySelector(".message-content")
+    contentDiv.textContent = content
+    this.scrollToBottom()
+  }
+
+  createMessageDiv(role) {
     const messageDiv = document.createElement("div")
     messageDiv.classList.add("message", `message-${role}`)
 
     const contentDiv = document.createElement("div")
     contentDiv.classList.add("message-content")
-    contentDiv.textContent = content
 
     messageDiv.appendChild(contentDiv)
     this.messagesTarget.appendChild(messageDiv)
 
-    this.scrollToBottom()
+    return messageDiv
   }
 
   scrollToBottom() {
