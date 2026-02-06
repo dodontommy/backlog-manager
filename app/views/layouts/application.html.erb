@@ -206,12 +206,22 @@
         </div>
       <% end %>
 
-      <!-- Main Content -->
-      <main class="pt-20 pb-12 px-4 sm:px-6 lg:px-8">
-        <div class="container mx-auto">
-          <%= yield %>
-        </div>
-      </main>
+      <!-- Main Content and Chat Sidebar Container -->
+      <div class="flex">
+        <!-- Main Content - swapped by Turbo Drive -->
+        <main id="main-content" class="flex-1 pt-20 pb-12 px-4 sm:px-6 lg:px-8 transition-all duration-300" style="margin-right: 400px;">
+          <div class="container mx-auto">
+            <%= yield %>
+          </div>
+        </main>
+
+        <!-- Chat Sidebar - persistent, never reloads -->
+        <% if logged_in? %>
+          <aside id="chat-sidebar" data-controller="chat-sidebar">
+            <%= render "chat/sidebar" %>
+          </aside>
+        <% end %>
+      </div>
 
       <!-- Footer -->
       <footer class="bg-slate-900/50 border-t border-slate-800/50 mt-auto">
