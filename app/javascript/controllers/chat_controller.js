@@ -22,6 +22,15 @@ export default class extends Controller {
     textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px'
   }
 
+  handleKeydown(event) {
+    // Enter without Shift: submit form
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault()
+      this.formTarget.requestSubmit()
+    }
+    // Shift+Enter: allow default (new line)
+  }
+
   async submit(event) {
     event.preventDefault()
 
