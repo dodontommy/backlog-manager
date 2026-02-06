@@ -11,9 +11,13 @@ Rails.application.routes.draw do
   post "/steam/refresh_profile", to: "sessions#refresh_steam_profile", as: :refresh_steam_profile
 
   # Resource routes
-  resources :games, only: [:index, :show]
-  resources :user_games, only: [:index]
-  resources :recommendations, only: [:index]
+  resources :games, only: [ :index, :show ]
+  resources :user_games, only: [ :index ]
+  resources :recommendations, only: [ :index ]
+
+  # Chat routes
+  get "chat", to: "chat#index"
+  post "chat/messages", to: "chat#create", as: :chat_messages
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

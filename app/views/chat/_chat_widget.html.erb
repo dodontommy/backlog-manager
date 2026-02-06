@@ -1,0 +1,26 @@
+<div data-controller="chat" data-chat-session-id-value="">
+  <div class="chat-widget">
+    <div class="chat-header">
+      <h3>Gaming Backlog Assistant</h3>
+    </div>
+
+    <div class="chat-messages" data-chat-target="messages">
+      <div class="message message-assistant">
+        <div class="message-content">
+          Hi! I'm your gaming backlog assistant. I can help you explore your backlog, get recommendations, and update your game status. What would you like to know?
+        </div>
+      </div>
+    </div>
+
+    <form data-chat-target="form" data-action="submit->chat#submit" class="chat-input-form">
+      <input
+        type="text"
+        data-chat-target="input"
+        placeholder="Ask about your backlog..."
+        class="chat-input"
+        autocomplete="off"
+      />
+      <button type="submit" class="chat-submit">Send</button>
+    </form>
+  </div>
+</div>
