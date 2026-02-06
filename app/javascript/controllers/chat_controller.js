@@ -109,13 +109,41 @@ export default class extends Controller {
 
   createMessageDiv(role) {
     const messageDiv = document.createElement("div")
-    messageDiv.classList.add("message", `message-${role}`)
+    messageDiv.classList.add("message", `message-${role}`, "flex")
+
+    // Add alignment classes
+    if (role === "user") {
+      messageDiv.classList.add("justify-end")
+    } else {
+      messageDiv.classList.add("justify-start")
+    }
+
+    // Create content wrapper with proper styling
+    const contentWrapper = document.createElement("div")
+    if (role === "user") {
+      contentWrapper.classList.add("max-w-[85%]", "bg-slate-800", "border", "border-slate-700/50", "rounded-2xl", "rounded-tr-sm", "px-4", "py-3")
+    } else {
+      contentWrapper.classList.add("max-w-[90%]", "bg-gradient-to-br", "from-slate-800/50", "to-slate-900/50", "border", "border-blue-500/20", "rounded-2xl", "rounded-tl-sm", "px-4", "py-3")
+    }
 
     const contentDiv = document.createElement("div")
-    contentDiv.classList.add("message-content")
+    contentDiv.classList.add("message-content", "text-slate-100", "text-sm")
 
-    messageDiv.appendChild(contentDiv)
+    contentWrapper.appendChild(contentDiv)
+    messageDiv.appendChild(contentWrapper)
+
+    // Add fade-in animation
+    messageDiv.style.opacity = "0"
+    messageDiv.style.transform = "translateY(8px)"
+    messageDiv.style.transition = "opacity 200ms ease-out, transform 200ms ease-out"
+
     this.messagesTarget.appendChild(messageDiv)
+
+    // Trigger animation
+    setTimeout(() => {
+      messageDiv.style.opacity = "1"
+      messageDiv.style.transform = "translateY(0)"
+    }, 10)
 
     return messageDiv
   }
