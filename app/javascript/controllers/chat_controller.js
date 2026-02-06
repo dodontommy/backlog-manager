@@ -7,6 +7,19 @@ export default class extends Controller {
   connect() {
     console.log("Chat controller connected")
     this.scrollToBottom()
+
+    // Add auto-expand to textarea
+    if (this.hasInputTarget) {
+      this.inputTarget.addEventListener('input', this.autoExpand.bind(this))
+    }
+  }
+
+  autoExpand(event) {
+    const textarea = event.target
+    // Reset height to auto to get correct scrollHeight
+    textarea.style.height = 'auto'
+    // Set height to scrollHeight (capped at max-height in CSS)
+    textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px'
   }
 
   async submit(event) {
@@ -18,6 +31,7 @@ export default class extends Controller {
     // Add user message to UI
     this.addMessage("user", message)
     this.inputTarget.value = ""
+    this.inputTarget.style.height = 'auto' // Reset textarea height
     this.inputTarget.disabled = true
 
     // Create assistant message div for streaming
