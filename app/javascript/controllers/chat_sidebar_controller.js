@@ -26,10 +26,39 @@ export default class extends Controller {
     // Listen for window resize
     this.resizeHandler = this.handleResize.bind(this)
     window.addEventListener('resize', this.resizeHandler)
+
+    // Add keyboard shortcuts
+    this.keyboardHandler = this.handleKeyboard.bind(this)
+    document.addEventListener('keydown', this.keyboardHandler)
   }
 
   disconnect() {
     window.removeEventListener('resize', this.resizeHandler)
+    document.removeEventListener('keydown', this.keyboardHandler)
+  }
+
+  handleKeyboard(event) {
+    // Escape: Collapse sidebar
+    if (event.key === 'Escape') {
+      const isCollapsed = this.sidebarTarget.style.width === '60px'
+      if (!isCollapsed) {
+        this.collapse()
+      }
+    }
+
+    // Cmd/Ctrl+K: Focus input
+    if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
+      event.preventDefault()
+      const input = document.querySelector('[data-chat-target="input"]')
+      if (input) {
+        input.focus()
+        // Expand sidebar if collapsed
+        const isCollapsed = this.sidebarTarget.style.width === '60px'
+        if (isCollapsed) {
+          this.expand()
+        }
+      }
+    }
   }
 
   toggle() {
